@@ -34,7 +34,13 @@ module.exports = (sequelize) => {
     population: {
       type: DataTypes.INTEGER,
     },
-  });
+  },
+    {
+      timestamps: false
+      // timestamps: true,
+      // createdAt: false,
+      // updatedAt: 'actualizado'
+    });
 };
 
 // El modelo de la base de datos deberá tener las siguientes entidades(Aquellas propiedades marcadas con asterísco deben ser obligatorias):
