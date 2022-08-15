@@ -11,9 +11,9 @@ const country = {
 
 describe('Country routes', () => {
   before(() => conn.authenticate()
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  }));
+    .catch((err) => {
+      console.error('Unable to connect to the database:', err);
+    }));
   beforeEach(() => Country.sync({ force: true })
     .then(() => Country.create(pokemon)));
   describe('GET /countries', () => {

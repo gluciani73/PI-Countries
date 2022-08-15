@@ -6,8 +6,8 @@ module.exports = (sequelize) => {
   sequelize.define('activity', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
+      // allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
@@ -21,7 +21,13 @@ module.exports = (sequelize) => {
     season: {
       type: DataTypes.ENUM('Verano, Otoño, Invierno, Primavera'),
     },
-  });
+  },
+    {
+      timestamps: false
+      // timestamps: true,
+      // createdAt: false,
+      // updatedAt: 'actualizado'
+    });
 };
 
 // El modelo de la base de datos deberá tener las siguientes entidades(Aquellas propiedades marcadas con asterísco deben ser obligatorias):

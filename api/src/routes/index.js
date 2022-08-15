@@ -128,6 +128,82 @@ router.get('/countries/:id', async (req, res) => {
     }
 });
 
+router.get('/activities', async (req, res) => {
+    try {
+        console.log('Respuesta activities');
+        let result = await Activity.findAll();
+        if (!result.length) {
+            return res
+                .status(200)
+                .send("un mensaje adecuado: 'No se encuentran actividades'")
+        }
+        return res.status(200).json(result)
+    } catch (error) {
+        console.log(error)
+    }
+});
 
+// router.post('/activities', async (req, res) => {
+//     const { id, name, difficulty, duration, season, countries } = req.body;
+//     try {
+//         await dbComplete();
+//         console.log('Posteo activities');
+//         if (!id || !name) {
+//             return res
+//                 .status(400)
+//                 .send("un mensaje adecuado: 'La actividad no tiene id o nombre")
+//         }
+//         let newActivity = {
+//             id: id,
+//             name: name,
+//             difficulty: difficulty,
+//             duration: duration,
+//             season: season
+//         }
+//         // https://sequelize.org/docs/v6/core-concepts/model-querying-finders/#findorcreate
+//         const [activity, created] = await Activity.findOrCreate({
+//             where: newActivity
+//         });
+//         //https://sequelize.org/docs/v6/core-concepts/assocs/#foobelongstomanybar--through-baz-
+//         // await foo.addBars([bar1, bar2]);
+//         countries.forEach(async (c) => {
+//             await Country.addActivities(newActivity);
+//         });
+//         return res
+//             .status(201)
+//             .send(`Se creo la actividad ${newActivity.name} para los paises: ${countries.tostring()}`)
+
+//     } catch (error) {
+//         console.log(error);
+//     }
+// });
+
+
+router.post('/activities', async (req, res) => {
+    try {
+        let { name, difficulty, duration, season, countries } = req.body
+        // Se crea la actividad
+        let newActivity = await Activity.create({
+            name,
+            difficulty,
+            duration,
+            season
+        })
+
+        // Reviso el array de paises para ver en cual se debe crear la actividad 
+        countries.forEach(async (country) => {
+            let activityCountry = await Country.findOne({
+                where: {
+                    name: country
+                }
+            })
+            await newActivity.addCountry(activityCountry)
+        });
+        res.status(200).send('La actividad se creo exitosamente')
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('No se pudo crear la actividad')
+    }
+});
 
 module.exports = router;
