@@ -55,6 +55,7 @@ const dbComplete = async () => {
     }
 };
 
+// --------------- GET /countries AND /contries?name="..." ---------------------
 // GET / countries:
 // En una primera instancia deberán traer todos los países desde restcountries y guardarlos en su propia base de datos y luego ya utilizarlos desde allí(Debe retonar sólo los datos necesarios para la ruta principal)
 // Obtener un listado de los paises.
@@ -98,6 +99,7 @@ router.get('/countries', async (req, res) => {
     }
 })
 
+// ---------------------- GET /countries/id ---------------------------
 // GET / countries / { idPais }:
 // Obtener el detalle de un país en particular
 // Debe traer solo los datos pedidos en la ruta de detalle de país
@@ -127,7 +129,7 @@ router.get('/countries/:id', async (req, res) => {
         console.log(error)
     }
 });
-
+// ---------------------- GET /activites ---------------------------
 router.get('/activities', async (req, res) => {
     try {
         console.log('Respuesta activities');
@@ -143,67 +145,76 @@ router.get('/activities', async (req, res) => {
     }
 });
 
-// router.post('/activities', async (req, res) => {
-//     const { id, name, difficulty, duration, season, countries } = req.body;
-//     try {
-//         await dbComplete();
-//         console.log('Posteo activities');
-//         if (!id || !name) {
-//             return res
-//                 .status(400)
-//                 .send("un mensaje adecuado: 'La actividad no tiene id o nombre")
-//         }
-//         let newActivity = {
-//             id: id,
-//             name: name,
-//             difficulty: difficulty,
-//             duration: duration,
-//             season: season
-//         }
-//         // https://sequelize.org/docs/v6/core-concepts/model-querying-finders/#findorcreate
-//         const [activity, created] = await Activity.findOrCreate({
-//             where: newActivity
-//         });
-//         //https://sequelize.org/docs/v6/core-concepts/assocs/#foobelongstomanybar--through-baz-
-//         // await foo.addBars([bar1, bar2]);
-//         countries.forEach(async (c) => {
-//             await Country.addActivities(newActivity);
-//         });
-//         return res
-//             .status(201)
-//             .send(`Se creo la actividad ${newActivity.name} para los paises: ${countries.tostring()}`)
-
-//     } catch (error) {
-//         console.log(error);
-//     }
-// });
-
-
+// ---------------------- POST /activites ---------------------------
 router.post('/activities', async (req, res) => {
     try {
-        let { name, difficulty, duration, season, countries } = req.body
-        // Se crea la actividad
-        let newActivity = await Activity.create({
+
+        console.log('-------POST /activities -------------- ')
+        console.log('Req.body trae esto: ', req.body)
+        const { name, difficulty, duration, season, countries } = req.body;
+        await dbComplete();
+        console.log('Posteo activities');
+        if (!name) {
+            return res
+                .status(400)
+                .send("La actividad debe tener nombre")
+        }
+        let newActivity = {
             name,
             difficulty,
             duration,
             season
-        })
-
-        // Reviso el array de paises para ver en cual se debe crear la actividad 
-        countries.forEach(async (country) => {
-            let activityCountry = await Country.findOne({
-                where: {
-                    name: country
-                }
-            })
-            await newActivity.addCountry(activityCountry)
+        }
+        // https://sequelize.org/docs/v6/core-concepts/model-querying-finders/#findorcreate
+        const [activity, created] = await Activity.findOrCreate({
+            where: newActivity
         });
-        res.status(200).send('La actividad se creo exitosamente')
+        console.log(created ? 'Se creo la actividad' : 'La actividad ya existe');
+
+        //https://sequelize.org/docs/v6/core-concepts/assocs/#foobelongstomanybar--through-baz-
+        const selectedCountries = [];
+        const notFound = [];
+        countries.forEach(async (c) => {
+            const country = await Country.findOne({ where: { name: c } });
+            if (country) { await activity.addCountry(country) };
+        });
+        let msg = `Se creo la actividad ${activity.name}.`
+        return res
+            .status(201)
+            .send(msg)
+
     } catch (error) {
         console.log(error)
-        res.status(500).send('No se pudo crear la actividad')
     }
 });
+
+// router.post('/activities', async (req, res) => {
+//     try {
+//         let { id, name, difficulty, duration, season, countries } = req.body
+//         // Se crea la actividad
+//         let newActivity = await Activity.create({
+//             id,
+//             name,
+//             difficulty,
+//             duration,
+//             season
+//         })
+
+//         // Reviso el array de paises para ver en cual se debe crear la actividad 
+//         // countries.forEach(async (country) => {
+//         //     let activityCountry = await Country.findOne({
+//         //         where: {
+//         //             name: country
+//         //         }
+//         //     })
+//         //     await newActivity.addCountry(activityCountry)
+//         // });
+
+//         res.status(200).send('La actividad se creo exitosamente')
+//     } catch (error) {
+//         console.log(error)
+//         res.status(500).send('No se pudo crear la actividad')
+//     }
+// });
 
 module.exports = router;

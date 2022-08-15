@@ -7,7 +7,8 @@ module.exports = (sequelize) => {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      // allowNull: false,
+      allowNull: false,
+      autoIncrement: true
     },
     name: {
       type: DataTypes.STRING,
@@ -19,7 +20,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     season: {
-      type: DataTypes.ENUM('Verano, Otoño, Invierno, Primavera'),
+      type: DataTypes.ENUM('Verano', 'Otoño', 'Invierno', 'Primavera'),
     },
   },
     {
