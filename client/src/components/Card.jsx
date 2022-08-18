@@ -1,5 +1,5 @@
 import React from 'react';
-import './Card.css';
+import './Card.module.css';
 import { Link } from 'react-router-dom';
 
 export default function Card({ flag, name, continent, onClose, id }) {
@@ -9,7 +9,7 @@ export default function Card({ flag, name, continent, onClose, id }) {
                 <button onClick={onClose} className="btn btn-sm btn-danger">X</button>
             </div>
             <div className="flag">
-                <img className="imagenBandera" src={flag} width="240" height="80" alt="flag image not fount" />
+                <img className="imagenBandera" src={flag} width="240" height="80" alt="flag not fount" />
             </div>
             <div className="countryTitle">
                 <Link to={`/countries/${id}`}>
