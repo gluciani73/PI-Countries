@@ -5,8 +5,14 @@ import { Link } from 'react-router-dom'
 export default function Landing() {
     return (
         <div className={s.landing} >
+            <div className={s.landingText}>
+
+                <h1>Countries</h1>
+            </div>
+            <h2>Know something else about our world</h2>
+            <h3>Capitals, Activities, Population, Areas... </h3>
             <Link to='/home'>
-                <button className={s.button}  >Home</button>
+                <button className={s.button} >Home</button>
             </Link>
         </div>
     )
