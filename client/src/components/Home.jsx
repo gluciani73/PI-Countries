@@ -34,13 +34,14 @@ export default function Home() {
             <h2>Header</h2>
         </div>
         <div>
+            <h3> Pages</h3>
             <Pages
                 cardsxPage={cardsxPage}
                 currPage={currPage}
-
             />
         </div>
-        <div className={""} >
+        <div className={s.homeCards} >
+            <h3>Countries</h3>
             <Cards countries={currentCountries} />
         </div>
 

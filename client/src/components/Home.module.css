@@ -1,6 +1,8 @@
 .home {
-    /* display: flex; */
+    display: flex;
+    flex-direction: column;
     background: url('../images/EarthMap.jpg');
+    background-color: darkgrey;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -9,4 +11,11 @@
     text-decoration: none;
     /* max-width: 100vh */
     /* background-color: darkgray; */
+}
+
+.homeCards {
+
+    margin-top: 30px;
+    background-color: darkgray;
+
 }

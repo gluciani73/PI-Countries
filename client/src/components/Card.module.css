@@ -1,7 +1,25 @@
 .card {
-    margin: 20px;
-    width: 18rem;
-    color: whitesmoke
+    display: flex;
+    flex-direction: column;
+    /* margin: 20px; */
+    width: 150px;
+    height: 150px;
+    color: whitesmoke;
+    box-shadow: 0px 0px 30px 0 rgb(0 0 0 / 38%);
+    overflow: hidden;
+    word-wrap: break-word;
+    /* crea salto de lineas si el txt es largo */
+    margin: 10px 2% 10px 2%;
+    transition: all 0.2s;
+    /* separaciones */
+    padding: 20px;
+    border-radius: 10px;
+    /* Las separo un poco cosa de que me queden 3 por fila */
+    margin-left: 3%;
+    margin-right: 3%;
+    /* Separacion entre tarjetas */
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .countryTitle {

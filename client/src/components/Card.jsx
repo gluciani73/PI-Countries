@@ -14,10 +14,10 @@ export default function Card({ flag, name, continent, onClose, id }) {
             <div className={s.countryTitle} >
                 {/* <h5 > </h5> */}
                 <Link to={`/countries/${id}`}>
-                    <h3 className={s.countryTitle}>Country: {name}</h3>
+                    <h3 className={s.countryTitle}>{name}</h3>
                 </Link>
                 <div >
-                    <p>Continent:  {continent}</p>
+                    <p> {continent}</p>
                 </div>
             </div>
         </div>
