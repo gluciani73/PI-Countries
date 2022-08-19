@@ -9,7 +9,7 @@ export default function Landing() {
 
                 <h1>Countries</h1>
             </div>
-            <h2>Know something else about our world</h2>
+            <h2>Learn something else about our world</h2>
             <h3>Capitals, Activities, Population, Areas... </h3>
             <Link to='/home'>
                 <button className={s.button} >Home</button>

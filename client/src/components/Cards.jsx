@@ -6,13 +6,15 @@ export default function Cards({ countries, onClose }) {
     if (countries) {
         return (
             <div className='cards'>
-                {countries.map(c => <Card
-                    flag={c.flag}
-                    name={c.name}
-                    continent={c.continent}
-                    onClose={() => onClose(c.id)}
-                    id={c.id}
-                />)}
+                {countries.map(country =>
+                    <Card
+                        key={country.id}
+                        id={country.id}
+                        flag={country.flag}
+                        name={country.name}
+                        continent={country.continent}
+                    // onClose={() => onClose(country.id)}
+                    />)}
             </div>
         );
     } else {

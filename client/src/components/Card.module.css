@@ -1,11 +1,17 @@
 .card {
     margin: 20px;
     width: 18rem;
+    color: whitesmoke
 }
 
-.card-title {
-    margin-bottom: 15px;
+.countryTitle {
+    color: whitesmoke;
+    text-decoration: none;
 }
+
+/* .card-title {
+    margin-bottom: 15px;
+} */
 
 #closeIcon {
     display: flex;

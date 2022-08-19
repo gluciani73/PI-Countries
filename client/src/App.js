@@ -9,9 +9,9 @@ function App() {
   return (
     <div className="App">
       {/* <h1>Henry Countries</h1> */}
-      <Route exact path='/' component={Landing} />
-      <Route exact path='/home' component={Home} />
-      <Route exact path='/country' component={Country} />
+      <Route exact path='/' render={() => <Landing />} />
+      <Route exact path='/home' render={() => <Home />} />
+      <Route exact path='/country' render={() => <Country />} />
 
     </div>
   );

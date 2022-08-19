@@ -14,7 +14,7 @@ export function getAllCountries(query) {
     // setLoading(true);
 
     return function (dispatch) {
-        axios.get(`/countries`)
+        axios.get(`http://localhost:3001/countries`)
             .then(response => response.data)
             .then(response => {
                 dispatch({ type: GET_ALL_COUNTRIES, payload: response })

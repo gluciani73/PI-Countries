@@ -1,21 +1,22 @@
 import React from 'react';
-import './Card.module.css';
+import s from './Card.module.css';
 import { Link } from 'react-router-dom';
 
 export default function Card({ flag, name, continent, onClose, id }) {
     return (
-        <div className="card">
-            <div id="closeIcon" className="row">
+        <div className={s.card} >
+            {/* <div id="closeIcon" className="row">
                 <button onClick={onClose} className="btn btn-sm btn-danger">X</button>
-            </div>
+            </div> */}
             <div className="flag">
-                <img className="imagenBandera" src={flag} width="240" height="80" alt="flag not fount" />
+                <img className="imagenBandera" src={flag} width="120" height="60" alt="flag not fount" />
             </div>
-            <div className="countryTitle">
+            <div className={s.countryTitle} >
+                {/* <h5 > </h5> */}
                 <Link to={`/countries/${id}`}>
-                    <h5 className="card-title"> Country: {name}</h5>
+                    <h3 className={s.countryTitle}>Country: {name}</h3>
                 </Link>
-                <div className="continent">
+                <div >
                     <p>Continent:  {continent}</p>
                 </div>
             </div>

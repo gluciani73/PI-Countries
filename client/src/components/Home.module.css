@@ -5,32 +5,8 @@
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
-
+    color: whitesmoke;
+    text-decoration: none;
     /* max-width: 100vh */
     /* background-color: darkgray; */
-}
-
-.button {
-    display: flex;
-    position: absolute;
-    top: 45%;
-    left: 45%;
-    /* justify-content: center; */
-    /* align-items: flex-end; */
-    padding: 15px 30px;
-    color: black;
-    background-color: darkgrey;
-    font-size: 16px;
-    text-align: center;
-    text-decoration: none;
-    border: 10 px;
-    border-radius: 15px;
-    width: 250 px;
-    height: 50px;
-    /* display: inline-block; */
-}
-
-.button:hover {
-    color: darkgray;
-    background-color: black;
 }

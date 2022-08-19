@@ -5,18 +5,22 @@
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
-
-    /* max-width: 100vh */
-    /* background-color: darkgray; */
+    color: whitesmoke
+        /* max-width: 100vh */
+        /* background-color: darkgray; */
 }
+
+/* .landingRow {
+    color: wheat;
+} */
 
 .button {
     display: flex;
     position: absolute;
-    top: 45%;
-    left: 40%;
+    top: 40%;
+    left: 45%;
     border-radius: 6px;
-    background-color: darkgrey;
+    background-color: whitesmoke;
     border: none;
     color: black;
     justify-content: center;
@@ -30,7 +34,7 @@
 }
 
 .button:hover {
-    color: darkgray;
+    color: whitesmoke;
     background-color: rgb(71, 71, 71);
     padding-left: 0px;
     transition: all 1s;
