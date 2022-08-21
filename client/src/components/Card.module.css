@@ -1,10 +1,11 @@
 .card {
-    display: flex;
-    flex-direction: column;
     /* margin: 20px; */
+    background-color: #0d1117;
+    /* background-color: #2c4150; */
     width: 150px;
     height: 150px;
-    color: whitesmoke;
+    /* color: #b8b7b8; */
+    color: #b6b6b7;
     box-shadow: 0px 0px 30px 0 rgb(0 0 0 / 38%);
     overflow: hidden;
     word-wrap: break-word;
@@ -20,10 +21,13 @@
     /* Separacion entre tarjetas */
     margin-top: 50px;
     margin-bottom: 50px;
+
 }
 
 .countryTitle {
-    color: whitesmoke;
+    /* color: whitesmoke; */
+    /* color: #b8b7b8; */
+    color: #b6b6b7;
     text-decoration: none;
 }
 

@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllCountries } from "../redux/actions";
 import Cards from "./Cards";
 import Pages from "./Pages";
+// import Search from "./Search";
 
 import s from './Home.module.css';
-// import Search from "./Search";
-// import Cards from "./Cards";
 
 export default function Home() {
 
@@ -30,10 +29,10 @@ export default function Home() {
     const currentCountries = allCountries.slice(idxFirst, idxLast) // pag 1 de 0 a 9
 
     return (<div className={s.home}>
-        <div>
+        <div className={s.header}>
             <h2>Header</h2>
         </div>
-        <div>
+        <div className={s.pages}>
             <h3> Pages</h3>
             <Pages
                 cardsxPage={cardsxPage}
