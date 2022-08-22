@@ -13,7 +13,7 @@ export default function Card({ flag, name, continent, onClose, id }) {
             </div>
             <div className={s.countryTitle} >
                 {/* <h5 > </h5> */}
-                <Link to={`/countries/${id}`}>
+                <Link to={`/country/${id}`}>
                     <h3 className={s.countryTitle}>{name}</h3>
                 </Link>
                 <div >

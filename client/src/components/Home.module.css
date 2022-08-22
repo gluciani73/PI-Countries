@@ -18,7 +18,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-content: flex-start;
     margin-top: 30px;
     background-color: #3c4e61;
     /* background-color: #0d1117; */

@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getCountryDetail } from "../redux/actions";
 import s from './Country.module.css';
 
-let country =
-{
-    id: "ITA",
-    name: "Italy",
-    flag: "https://flagcdn.com/w320/it.png",
-    continent: "Europe",
-    capital: "Rome",
-    subregion: "Southern Europe",
-    area: 301336,
-    population: 59554023,
-    activities: []
-}
+export default function Country() {
 
-export default function Country({ Country }) {
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    console.log('id de params: ', id)
+    useEffect(() => {
+        dispatch(getCountryDetail(id));
+    }, [dispatch, id]);
+    console.log()
+    const country = useSelector((state) => state.countryDetail)
+    console.log('Country: ', country);
     return (
         <div className={s.country} >
             <div className={s.detail}>
@@ -31,4 +31,4 @@ export default function Country({ Country }) {
             </div>
         </div>
     )
-}
+};
