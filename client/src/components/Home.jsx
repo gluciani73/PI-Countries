@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCountries } from "../redux/actions";
+import { getAllActivities, getAllCountries } from "../redux/actions";
 import Cards from "./Cards";
 import Pages from "./Pages";
+import Header from "./Header";
 // import Search from "./Search";
 
 import s from './Home.module.css';
@@ -12,31 +13,50 @@ export default function Home() {
     const dispatch = useDispatch();
     // traigo los paises del estado Global
     const allCountries = useSelector(state => state.allCountries);
-    const currPage = useSelector(state => state.pageCurr);
-
-    // const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(currPage) //pagina actual (initialState = 1)
-    const [cardsxPage, setCardsxPage] = useState(9);
 
     // Si se carga por primera vez o actualizan los componentes:
     useEffect(() => {
         dispatch(getAllCountries());
-    }, []);
+        dispatch(getAllActivities());
+    }, [dispatch]);
 
+    // Estados locales para los filtros
+    const [filter, setFilter] = useState({
+        search: '',
+        continent: [],
+        activity: '',
+        sort: '',
+    })
+
+    useEffect(() => {
+        // dispatch(allFilters(filter));
+    }, [filter, dispatch])
+
+    // Estados locales para paginas
+    const [currPage, setCurrPage] = useState(1)
+    const cardsxPage = 10; // en la pag 1 dejo 9 mas adelante
+    // const [loading, setLoading] = useState(false);
     // calcúlo datos para paginar:
-    const idxLast = currPage * cardsxPage;  // para pag 1 sería pag. 1 x 9 cards = 9 el ultimo idx
-    const idxFirst = idxLast - cardsxPage; // para pag. 1 sería 9 - 9 = 0
-    const currentCountries = allCountries.slice(idxFirst, idxLast) // pag 1 de 0 a 9
+    const idxLastCard = currPage === 1 ? 8 : currPage * cardsxPage - 2;
+    // para pag 2 sería pag. 2 x 10 cards - 2 = 18 el ultimo idx
+    const idxFirstCard = currPage === 1 ? 0 : idxLastCard - cardsxPage + 1; // para pag. 2 sería 18 - 10 = 8
+    // Funcion que cambia pagina
+    const pageChange = (number) => { setCurrPage(number) };
+    const totalCards = allCountries.length
+    const currentCountries = allCountries.slice(idxFirstCard, idxLastCard + 1) // pag 1 de 0 a 8, de pag 2 en adelante de 9 a 18
 
     return (<div className={s.home}>
         <div className={s.header}>
             <h2>Header</h2>
+            <Header />
         </div>
         <div className={s.pages}>
             <h3> Pages</h3>
             <Pages
-                cardsxPage={cardsxPage}
+                totalCards={totalCards}
                 currPage={currPage}
+                cardsxPage={cardsxPage}
+                pageChange={pageChange}
             />
         </div>
         <div className={s.homeCards} >

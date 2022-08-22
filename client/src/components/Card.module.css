@@ -16,12 +16,11 @@
     padding: 20px;
     border-radius: 10px;
     /* Las separo un poco cosa de que me queden 3 por fila */
-    margin-left: 3%;
-    margin-right: 3%;
+    margin-left: 2%;
+    margin-right: 2%;
     /* Separacion entre tarjetas */
     margin-top: 50px;
     margin-bottom: 50px;
-
 }
 
 .countryTitle {
