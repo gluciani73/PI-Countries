@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const PATH = "http://localhost:3001/countries/";
+// const PATH = "http://localhost:3001/countries/";
 
 export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES';
 export const GET_FILTERED_COUNTRIES = 'GET_FILTERED_COUNTRIES';
@@ -71,9 +71,7 @@ export function filterCountries(filter) {
         // .finally(() => setLoading(false))
     };
 
-
-
-    return { type: FILTER_COUNTRIES, payload: filter }
+    // return { type: FILTER_COUNTRIES, payload: filter }
 }
 
 

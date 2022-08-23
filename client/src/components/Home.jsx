@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllActivities, getAllCountries, getCountryByName } from "../redux/actions";
+import { getAllActivities, getAllCountries } from "../redux/actions";
 import Cards from "./Cards";
 import Pages from "./Pages";
 import Header from "./Header";
@@ -12,7 +12,7 @@ export default function Home() {
 
     const dispatch = useDispatch();
     // traigo los paises del estado Global
-    const allCountries = useSelector(state => state.allCountries);
+    // const allCountries = useSelector(state => state.allCountries);
     const filteredCountries = useSelector(state => state.selectedCountries);
     const currPage = useSelector(state => state.currentPage);
 
@@ -22,17 +22,13 @@ export default function Home() {
         dispatch(getAllActivities());
     }, [dispatch]);
 
-    // useEffect(() => {
-    //     // dispatch(allFilters(filter));
-    // }, [filter, dispatch])
-
     // Estados locales para los filtros
-    const [filter, setFilter] = useState({
-        search: '',
-        continent: [],
-        activity: '',
-        sort: '',
-    })
+    // const [filter, setFilter] = useState({
+    //     search: '',
+    //     continent: [],
+    //     activity: '',
+    //     sort: '',
+    // })
 
     // Estados locales para paginas
     // const [currPage, setCurrPage] = useState(1)
@@ -58,19 +54,14 @@ export default function Home() {
                 totalCards={totalCards}
                 currPage={currPage}
                 cardsxPage={cardsxPage}
-            // pageChange={pageChange}
             />
         </div>
         <div className={s.homeCards} >
             <h3>Countries</h3>
-            <Cards countries={
-                currentCountries
-            } />
+            <Cards
+                countries={currentCountries}
+            />
         </div>
-
-        {/* <Search onSearch={onSearch} /> */}
-        {/* <Cards countries={countries} onClose={onClose} /> */}
-
     </div>
     );
 }

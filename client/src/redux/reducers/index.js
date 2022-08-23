@@ -58,25 +58,25 @@ const rootReducer = (state = initialState, action) => {
                     ...state,
                     selectedCountries: state.allCountries.filter(e => e.name.toLowerCase().includes(search))
                 }
+            break
         };
 
-        case SET_PAGE: {
+        case SET_PAGE:
             return {
                 ...state,
                 currentPage: action.payload
-            }
-        };
+            };
+
 
 
         default: return state;
     }
 };
-function order() {
 
-};
-function filter() {
+// function order() {
+// };
 
-
-};
+// function filter() {
+// };
 
 export default rootReducer;
