@@ -8,19 +8,21 @@ export default function Country() {
 
     const dispatch = useDispatch();
     const { id } = useParams();
-    console.log('id de params: ', id)
+    // console.log('id de params: ', id)
     useEffect(() => {
         dispatch(getCountryDetail(id));
     }, [dispatch, id]);
     console.log()
     const country = useSelector((state) => state.countryDetail)
-    console.log('Country: ', country);
+    // console.log('Country: ', country);
     return (
         <div className={s.country} >
             <div className={s.detail}>
                 <h2>{country.name}</h2>
-                <img src={country.flag} alt="country flag not found" />
-                <div className="info">
+                <img className={s.flag}
+                    src={country.flag}
+                    alt="country flag not found" />
+                <div className={s.info}>
                     <div>Country code: {country.id}</div>
                     <div>Capital: {country.capital}</div>
                     <div>Subregion: {country.subregion}</div>

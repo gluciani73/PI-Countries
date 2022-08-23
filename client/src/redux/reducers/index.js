@@ -1,4 +1,4 @@
-import { GET_ALL_COUNTRIES, GET_COUNTRY_DETAIL, GET_ALL_ACTIVITIES, ADD_ACTIVITIES, FILTER_COUNTRIES } from "../actions";
+import { GET_ALL_COUNTRIES, GET_COUNTRY_BY_NAME, GET_COUNTRY_DETAIL, GET_ALL_ACTIVITIES, ADD_ACTIVITIES, FILTER_COUNTRIES, SET_PAGE } from "../actions";
 
 
 // Estado Global Inicial
@@ -8,6 +8,7 @@ const initialState = {
     selectedCountries: [],  // contiene paises seleccionados
     countryDetail: {}, // detalle de un pais
     allActivities: [],
+    currentPage: 1
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -16,6 +17,12 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allCountries: action.payload,
+                selectedCountries: action.payload
+            }
+        }
+        case GET_COUNTRY_BY_NAME: {
+            return {
+                ...state,
                 selectedCountries: action.payload
             }
         }
@@ -51,7 +58,13 @@ const rootReducer = (state = initialState, action) => {
                     ...state,
                     selectedCountries: state.allCountries.filter(e => e.name.toLowerCase().includes(search))
                 }
+        };
 
+        case SET_PAGE: {
+            return {
+                ...state,
+                currentPage: action.payload
+            }
         }
 
         default: return state;

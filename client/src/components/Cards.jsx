@@ -3,10 +3,10 @@ import s from './Cards.module.css';
 import Card from './Card.jsx';
 
 export default function Cards({ countries, onClose }) {
-    if (countries) {
+    if (countries.length) {
         return (
             <div className={s.cards}>
-                {countries.map(country =>
+                {countries.length && countries.map(country =>
                     <Card
                         key={country.id}
                         id={country.id}
@@ -19,7 +19,7 @@ export default function Cards({ countries, onClose }) {
         );
     } else {
         return (
-            <div>No countries selected</div>
+            <div>No countries to show</div>
         )
     }
 }
