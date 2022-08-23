@@ -38,7 +38,10 @@ export function getCountryByName(name) {
             .then(response => {
                 dispatch({ type: GET_COUNTRY_BY_NAME, payload: response })
             })
-            .catch(error => console.log(new Error(error)))
+            .catch(error => {
+                console.log(new Error(error));
+            }
+            )
         // .finally(() => setLoading(false))
     };
 };

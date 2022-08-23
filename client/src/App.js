@@ -3,6 +3,7 @@ import './App.css';
 import Landing from './components/Landing';
 import Home from './components/Home';
 import Country from './components/Country';
+import Activity from './components/Activity';
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Route exact path='/' render={() => <Landing />} />
       <Route exact path='/home' render={() => <Home />} />
       <Route exact path='/country/:id' render={() => <Country />} />
+      <Route exact path='/activity' render={() => <Activity />} />
 
     </div>
   );

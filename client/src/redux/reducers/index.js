@@ -65,7 +65,8 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 currentPage: action.payload
             }
-        }
+        };
+
 
         default: return state;
     }
