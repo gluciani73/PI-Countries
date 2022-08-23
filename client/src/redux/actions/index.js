@@ -92,7 +92,7 @@ export function getAllActivities() {
 export function addActivity(data) {
     // setLoading(true);
     return function (dispatch) {
-        axios.post(`/activities/`, data)
+        axios.post(`http://localhost:3001/activities`, data)
             .then(response => response.data)
             .then(response => {
                 dispatch({ type: ADD_ACTIVITIES, payload: response })

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getCountryDetail } from "../redux/actions";
+import { addActivity, getCountryDetail } from "../redux/actions";
 import s from './Country.module.css';
 
 export default function Country() {
@@ -12,7 +12,7 @@ export default function Country() {
     useEffect(() => {
         dispatch(getCountryDetail(id));
     }, [dispatch, id]);
-    console.log()
+    // console.log()
     const country = useSelector((state) => state.countryDetail)
     // console.log('Country: ', country);
     return (
@@ -26,9 +26,18 @@ export default function Country() {
                     <div>Country code: {country.id}</div>
                     <div>Capital: {country.capital}</div>
                     <div>Subregion: {country.subregion}</div>
-                    <div>Area: {country.area}</div>
-                    <div>Population: {country.population}</div>
-                    <div>Turism Activities: {country.activities}</div>
+                    <div>Area: {country.area} km2</div>
+                    <div>Population: {country.population} inhabitants</div>
+                    <div>Turism Activities: {
+                        country.activities && country.activities.map(
+                            (a) => (<div>
+                                <p><strong>{a.name}</strong></p>
+                                <p>Difficulty: {a.difficulty}</p>
+                                <p>Duration: {a.duration}</p>
+                                <p>Season:  {a.season}</p>
+                            </div>)
+                        )
+                    }</div>
                 </div>
             </div>
         </div>

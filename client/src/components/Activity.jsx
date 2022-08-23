@@ -1,32 +1,35 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addActivity } from '../redux/actions';
+import { useHistory } from 'react-router';
 // import s from 'Activity.module.css';
 
-function validate(input) {
-    let errors = {};
-    // if (!input.username) {
-    //     errors.username = 'Username is required';
-    // } else if (!/\S+@\S+\.\S+/.test(input.username)) {
-    //     errors.username = 'Username is invalid';
-    // }
-    // if (!input.password) {
-    //     errors.password = 'Password is required';
-    // } else if (!/(.*[0-9].*)/.test(input.password)) {
-    //     errors.password = 'Password is invalid';
-    // }
-    // return errors;
+// function validate(input) {
+//     let errors = {};
+//     // if (!input.username) {
+//     //     errors.username = 'Username is required';
+//     // } else if (!/\S+@\S+\.\S+/.test(input.username)) {
+//     //     errors.username = 'Username is invalid';
+//     // }
+//     // if (!input.password) {
+//     //     errors.password = 'Password is required';
+//     // } else if (!/(.*[0-9].*)/.test(input.password)) {
+//     //     errors.password = 'Password is invalid';
+//     // }
+//     // return errors;
 
-    // if (!/^[A-Za-z0-9\s]+$/g.test(input)) {
-    //     setErrors('Just letters an numbers as activity name');
-    // } else {
-    //     setErrors({});
-    // }
-    // setActivityName(input);
-}
+//     // if (!/^[A-Za-z0-9\s]+$/g.test(input)) {
+//     //     setErrors('Just letters an numbers as activity name');
+//     // } else {
+//     //     setErrors({});
+//     // }
+//     // setActivityName(input);
+// }
 
 export default function Activity() {
     const dispatch = useDispatch();
+    const history = useHistory();
+    const countries = useSelector(state => state.allCountries)
 
     const [input, setInput] = useState(
         {
@@ -36,8 +39,7 @@ export default function Activity() {
             season: '',
             countries: []
         });
-    // const [activityName, setActivityName] = useState('');
-    // const [duration, setDuration] = useState('');
+
     const [errors, setErrors] = useState({});
 
     const handleInputChange = function (e) {
@@ -45,11 +47,27 @@ export default function Activity() {
         //     ...input,
         //     [e.target.name]: e.target.value
         // }));
+        if (e.target.checked) {
+            setInput({
+                ...input,
+                [e.target.name]: e.target.value
+            })
+        }
+
         setInput({
             ...input,
             [e.target.name]: e.target.value
         });
-    }
+    };
+
+    const handleAddCountry = (e) => {
+        setInput({
+            ...input,
+            countries: [...input.countries, e.target.value]
+        }
+
+        )
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -61,7 +79,11 @@ export default function Activity() {
             season: '',
             countries: []
         });
+        alert('Se creo la actividad');
+        // https://v5.reactrouter.com/web/api/Hooks/usehistory
+        history.push('/home');
     }
+
 
     return (
         <div>
@@ -120,11 +142,24 @@ export default function Activity() {
                     <label>
                         <input type="radio" value='Primavera' name='season' onChange={handleInputChange} />
                         Primavera</label>
-
-
                 </div>
 
+                <div>
+                    <label>Select activity countries: </label>
+                    <select name="countries" onChange={(e) => handleAddCountry(e)}>
+                        {countries.map((country) => (
+                            <option value={country.name}>{country.name}</option>
+                        ))}
+                    </select>
 
+                    {input.countries.map((c) =>
+                        <div>
+                            <p>{c}</p>
+
+                        </div>
+                    )}
+
+                </div>
 
 
                 <input type="submit" />
