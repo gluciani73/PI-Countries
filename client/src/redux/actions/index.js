@@ -33,16 +33,19 @@ export function getAllCountries() {
 export function getCountryByName(name) {
     // setLoading(true);
     return function (dispatch) {
-        axios.get(`http://localhost:3001/countries?name=${name}`)
-            .then(response => response.data)
-            .then(response => {
-                dispatch({ type: GET_COUNTRY_BY_NAME, payload: response })
-            })
-            .catch(error => {
-                console.log(new Error(error));
-            }
-            )
-        // .finally(() => setLoading(false))
+        try {
+            axios.get(`http://localhost:3001/countries?name=${name}`)
+                .then(response => response.data)
+                .then(response => {
+                    dispatch({ type: GET_COUNTRY_BY_NAME, payload: response })
+                })
+                .catch(error => {
+                    console.log(new Error(error));
+                })
+            // .finally(() => setLoading(false))
+        } catch (error) {
+            console.log('No se pudo encontrar el pais')
+        }
     };
 };
 
