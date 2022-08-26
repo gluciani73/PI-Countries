@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addActivity, getCountryDetail } from "../redux/actions";
+import { getCountryDetail, resetCountryDetail } from "../redux/actions";
 import s from './Country.module.css';
 
 export default function Country() {
@@ -9,6 +9,7 @@ export default function Country() {
     const dispatch = useDispatch();
     const { id } = useParams();
     // console.log('id de params: ', id)
+
     useEffect(() => {
         dispatch(getCountryDetail(id));
     }, [dispatch, id]);
@@ -31,10 +32,7 @@ export default function Country() {
                     <div>Turism Activities: {
                         country.activities && country.activities.map(
                             (a) => (<div>
-                                <p><strong>{a.name}</strong></p>
-                                <p>Difficulty: {a.difficulty}</p>
-                                <p>Duration: {a.duration}</p>
-                                <p>Season:  {a.season}</p>
+                                <p><strong>{a.name}</strong> Difficulty: {a.difficulty}, Duration: {a.duration}, Season:  {a.season}</p>
                             </div>)
                         )
                     }</div>

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addActivity } from '../redux/actions';
+import { addActivity, getAllCountries } from '../redux/actions';
 import { useHistory } from 'react-router';
-// import s from 'Activity.module.css';
+import s from './Activity.module.css';
 
 // function validate(input) {
 //     let errors = {};
@@ -64,9 +64,16 @@ export default function Activity() {
         setInput({
             ...input,
             countries: [...input.countries, e.target.value]
-        }
+        })
+    };
 
-        )
+    const handleDeleteCountry = (e) => {
+        console.log('Delete Country: ', e)
+        // e.preventDefault();
+        setInput({
+            ...input,
+            countries: input.countries.filter((c) => c !== e)
+        })
     };
 
     const handleSubmit = (e) => {
@@ -84,9 +91,12 @@ export default function Activity() {
         history.push('/home');
     }
 
+    useEffect(() => {
+        dispatch(getAllCountries())
+    }, [dispatch]);
 
     return (
-        <div>
+        <div className={s.activityDiv}>
             <h2>Create Activity</h2>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
@@ -95,6 +105,7 @@ export default function Activity() {
                         type='text'
                         value={input.name}
                         name='name'
+                        required
                         onChange={handleInputChange}
                         placeholder="Activity name"
                     />
@@ -154,14 +165,10 @@ export default function Activity() {
 
                     {input.countries.map((c) =>
                         <div>
-                            <p>{c}</p>
-
+                            <p>{c} <button onClick={() => handleDeleteCountry(c)}>Remove</button></p>
                         </div>
                     )}
-
                 </div>
-
-
                 <input type="submit" />
             </form>
         </div>

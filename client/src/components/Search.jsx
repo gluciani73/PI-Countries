@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { getCountryByName } from '../redux/actions'
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { getCountryByName, setCurrentPage, resetCountries } from '../redux/actions'
 import s from './Search.module.css';
 
 export default function Search({ setFilter, country }) {
@@ -8,13 +9,20 @@ export default function Search({ setFilter, country }) {
     //     setFilter(e.target.name, e.target.value); }
 
     const dispatch = useDispatch();
+    const selectedCountries = useSelector(state => state.selectedCountries)
+
     const [search, setSearch] = useState('');
 
     const handleChange = (e) => {
         e.preventDefault();
         setSearch(e.target.value);
-        dispatch(getCountryByName(e.target.value));
+        dispatch(getCountryByName(e.target.value)); // cambia state.selectedCountries
+        dispatch(setCurrentPage(1));
     };
+
+    function handleReset() {
+        dispatch(resetCountries())
+    }
 
     return (
         <div className={s.searchDiv} >
@@ -32,6 +40,9 @@ export default function Search({ setFilter, country }) {
                     onChange={(e) => handleChange(e)}
                 />
             </form>
+            <Link to="/home">
+                <button onClick={() => handleReset()}>Show All Countries</button>
+            </Link>
         </div>
 
     );

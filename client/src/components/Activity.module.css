@@ -1,3 +1,12 @@
-.label {
-    /* color: darkblue; */
+.activityDiv {
+    /* display: flex; */
+    background: url('../images/EarthMap.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    color: aliceblue;
+
+    /* max-width: 100vh */
+    /* background-color: darkgray; */
 }

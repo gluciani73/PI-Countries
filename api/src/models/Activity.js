@@ -7,11 +7,12 @@ module.exports = (sequelize) => {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false,
+      // allowNull: false, no hace falta xq hay PK
       autoIncrement: true
     },
     name: {
       type: DataTypes.STRING,
+      allowNull: false
     },
     difficulty: {
       type: DataTypes.ENUM('1', '2', '3', '4', '5'),
