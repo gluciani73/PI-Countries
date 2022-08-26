@@ -27,6 +27,7 @@ export default function Country() {
                     <div>Country code: {country.id}</div>
                     <div>Capital: {country.capital}</div>
                     <div>Subregion: {country.subregion}</div>
+                    <div>Continent: {country.continent}</div>
                     <div>Area: {country.area} km2</div>
                     <div>Population: {country.population} inhabitants</div>
                     <div>Turism Activities: {

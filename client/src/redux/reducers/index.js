@@ -6,7 +6,11 @@ import {
     GET_ALL_ACTIVITIES,
     SET_PAGE,
     RESET_COUNTRIES,
-    RESET_COUNTRY_DETAIL
+    RESET_COUNTRY_DETAIL,
+    ORDER_BY_NAME,
+    ORDER_BY_POPULATION,
+    FILTER_CONTINENT,
+    FILTER_ACTIVITY,
 
     // FILTER_COUNTRIES,
 } from "../actions";
@@ -66,8 +70,35 @@ const rootReducer = (state = initialState, action) => {
                 allActivities: state.allActivities.concat(action.payload)
             }
         }
+        case ORDER_BY_NAME: {
+            let sortedCountries = state.selectedCountries;
+            if (action.payload === 'A-Z') {
+                sortedCountries = state.selectedCountries.sort((a, b) => a.name.localeCompare(b.name))
+            }
+            if (action.payload === 'Z-A') {
+                state.selectedCountries.sort((a, b) => b.name.localeCompare(a.name));
+            }
+            return {
+                ...state,
+                selectedCountries: sortedCountries
+            }
+        }
 
-        // const interseccion = arr1.filter((x) => arr2.includes(x))
+        case ORDER_BY_POPULATION: {
+
+            let sortedCountries = state.selectedCountries;
+            if (action.payload === 'ASC') {
+                state.selectedCountries.sort((a, b) => a.population - b.population)
+            }
+            if (action.payload === 'DESC') {
+                state.selectedCountries.sort((a, b) => b.population - a.population);
+            }
+            return {
+                ...state,
+                selectedCountries: sortedCountries
+            }
+        }
+
 
         // case FILTER_COUNTRIES: {
         //     const search = action.payload.search.toLowerCase();
@@ -99,6 +130,8 @@ const rootReducer = (state = initialState, action) => {
 // function order() {
 // };
 
+// const interseccion = arr1.filter((x) => arr2.includes(x))
+
 
 function sortArray(array, sort) {
     const sortAZ = (a, b) => {
@@ -115,8 +148,8 @@ function sortArray(array, sort) {
     if (sort === "A-Z") { return array.sort((a, b) => sortAZ(a.name, b.name)) }
     if (sort === "Z-A") { return array.sort((a, b) => sortZA(a.name, b.name)) }
 
-    if (sort === "> Population") { return array.sort((a, b) => sortMajor(a.population, b.population)) }
-    if (sort === "< Population") { return array.sort((a, b) => sortMinor(a.population, b.population)) }
+    if (sort === "ASC") { return array.sort((a, b) => sortMajor(a.population, b.population)) }
+    if (sort === "DESC") { return array.sort((a, b) => sortMinor(a.population, b.population)) }
 }
 
 

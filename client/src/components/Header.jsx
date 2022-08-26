@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 import s from './Header.module.css';
 import Search from './Search'
-import { orderName, filterByContinent, filterByActivity, getAllActivities } from "../redux/actions";
+import { filterByContinent, filterByActivity, getAllActivities, orderByName, orderByPopulation } from "../redux/actions";
 
 export default function Header() {
 
@@ -20,16 +20,17 @@ export default function Header() {
     //     sort: '',
     // })
 
-    const changeOrder = (event) => {
+    function handleOrderPop(event) {
         event.preventDefault()
-        setOrder(event.target.value)
+        dispatch(orderByPopulation(event.target.value));
+        // setOrder(event.target.value)
     }
 
-    function handleSort(event) {
+    function handleOrderName(event) {
         event.preventDefault();
-        dispatch(orderName(event.target.value));
+        dispatch(orderByName(event.target.value));
         // setCurrentPage(1);
-        setOrder(`Ordenado ${event.target.value}`)
+        // setOrder(`Ordenado ${event.target.value}`)
     }
 
     function handleFilterContinent(event) {
@@ -49,19 +50,19 @@ export default function Header() {
     return (
         <div className={s.headerDiv}>
             <div className={s.selectGap}>
-                <select onChange={event => changeOrder(event)} className={s.select}>
+                <select onChange={event => handleOrderPop(event)} className={s.select}>
                     {/** Deben ser filtrados ascendente y descendente por orden alfabetico y por cantidad de poblacion
                  */}
                     <option>Ordenar por poblacion</option>
                     <option value="ASC">Ascendente</option>
                     <option value="DESC">Descendente</option>
                 </select>
-                <select onChange={event => handleSort(event)} className={s.select}>
+                <select onChange={event => handleOrderName(event)} className={s.select}>
                     {/** Deben ser filtrados ascendente y descendente por orden alfabetico y por cantidad de poblacion
                  */}
                     <option>Ordenar por nombre</option>
-                    <option value="asc">Ascendente</option>
-                    <option value="desc">Descendente</option>
+                    <option value="A-Z">Ascendente</option>
+                    <option value="Z-A">Descendente</option>
                 </select>
                 <select onChange={event => handleFilterContinent(event)} className={s.select}>
                     {/* filtrar por continente y por tipo de actividad turística */}

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllActivities, getAllCountries, resetCountryDetail } from "../redux/actions";
+import { getAllActivities, getAllCountries, orderByName, resetCountryDetail } from "../redux/actions";
 import Cards from "./Cards";
 import Pages from "./Pages";
 import Header from "./Header";
@@ -21,11 +21,12 @@ export default function Home() {
         if (!selectedCountries.length) dispatch(getAllCountries());
         // dispatch(getAllCountries());
         dispatch(getAllActivities());
+        // dispatch(orderByName())
     }, [dispatch]);
 
-    // useEffect(() => {
-    //     dispatch(resetCountryDetail());
-    // }, [])
+    useEffect(() => {
+        // dispatch(resetCountryDetail());
+    }, [Cards, Pages, Header])
 
     // calcúlo datos para paginar:
     const cardsxPage = 10; // en la pag 1 dejo 9 mas adelante

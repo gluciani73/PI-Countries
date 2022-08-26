@@ -113,15 +113,14 @@ export function setCurrentPage(page) {
     return { type: SET_PAGE, payload: page }
 }
 
-
-export function orderName(payload) {
+export function orderByName(payload) {
     return {
         type: ORDER_BY_NAME,
         payload
     }
 }
 
-export function orderPopulation(payload) {
+export function orderByPopulation(payload) {
     return {
         type: ORDER_BY_POPULATION,
         payload
