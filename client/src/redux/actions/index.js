@@ -10,21 +10,14 @@ export const RESET_COUNTRY_DETAIL = 'RESET_COUNTRY_DETAIL';
 
 export const ADD_ACTIVITIES = 'ADD_ACTIVITIES';
 export const GET_ALL_ACTIVITIES = 'GET_ALL_ACTIVITIES';
-// export const POST_ACTIVITIES = 'POST_ACTIVITIES';
 
 export const SET_PAGE = 'SET_PAGE';
 
 // Para los filtros y ordenar
-export const FILTER_CONTINENT = 'FILTER_CONTINENT';
-export const FILTER_ACTIVITY = 'FILTER_ACTIVITY';
-
 export const ORDER_BY_NAME = 'ORDER_BY_NAME';
 export const ORDER_BY_POPULATION = 'ORDER_BY_POPULATION';
-
-// export const FILTER_COUNTRIES = "FILTER_COUNTRIES";
-// export const SORT_COUNTRIES = "SORT_COUNTRIES";
-// export const GET_FILTERED_COUNTRIES = 'GET_FILTERED_COUNTRIES';
-
+export const FILTER_CONTINENT = 'FILTER_CONTINENT';
+export const FILTER_ACTIVITY = 'FILTER_ACTIVITY';
 
 export function getAllCountries() {
     // setLoading(true);
@@ -38,7 +31,6 @@ export function getAllCountries() {
         // .finally(() => setLoading(false))
     };
 };
-
 export function getCountryByName(name) {
     // setLoading(true);
     return function (dispatch) {
@@ -49,7 +41,6 @@ export function getCountryByName(name) {
         }
     };
 };
-
 export function resetCountries() {
     return function (dispatch) {
         try {
@@ -59,7 +50,6 @@ export function resetCountries() {
         }
     };
 };
-
 export function getCountryDetail(id) {
     // setLoading(true);
     return function (dispatch) {
@@ -72,7 +62,6 @@ export function getCountryDetail(id) {
         // .finally(() => setLoading(false))
     };
 };
-
 export function resetCountryDetail() {
     return function (dispatch) {
         try {
@@ -82,7 +71,6 @@ export function resetCountryDetail() {
         }
     }
 }
-
 export function getAllActivities() {
     // setLoading(true);
     return function (dispatch) {
@@ -95,7 +83,6 @@ export function getAllActivities() {
         // .finally(() => setLoading(false))
     };
 };
-
 export function addActivity(data) {
     // setLoading(true);
     return function (dispatch) {
@@ -108,50 +95,31 @@ export function addActivity(data) {
         // .finally(() => setLoading(false))
     }
 };
-
 export function setCurrentPage(page) {
     return { type: SET_PAGE, payload: page }
-}
-
+};
 export function orderByName(payload) {
     return {
         type: ORDER_BY_NAME,
         payload
     }
-}
-
+};
 export function orderByPopulation(payload) {
     return {
         type: ORDER_BY_POPULATION,
         payload
     }
-}
-
+};
 export function filterByContinent(payload) {
     return {
         type: FILTER_CONTINENT,
         payload
     }
-}
-
+};
 export function filterByActivity(payload) {
     return {
         type: FILTER_ACTIVITY,
         payload
     }
-}
-
-// export function filterCountries(filter) {
-//     return function (dispatch) {
-//         axios.get(`http://localhost:3001/countries?name=${filter}`)
-//             .then(response => response.data)
-//             .then(response => {
-//                 dispatch({ type: GET_FILTERED_COUNTRIES, payload: response })
-//             })
-//             .catch(error => console.log(new Error(error)))
-//         // .finally(() => setLoading(false))
-//     };
-
-//     // return { type: FILTER_COUNTRIES, payload: filter }
-// }
+};
 

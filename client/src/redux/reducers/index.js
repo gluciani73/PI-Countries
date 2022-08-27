@@ -30,14 +30,14 @@ const rootReducer = (state = initialState, action) => {
         case GET_ALL_COUNTRIES: {
             return {
                 ...state,
-                allCountries: action.payload,
-                selectedCountries: action.payload
+                allCountries: action.payload.sort((a, b) => a.name.localeCompare(b.name)),
+                selectedCountries: action.payload.sort((a, b) => a.name.localeCompare(b.name))
             }
         }
         case GET_COUNTRY_BY_NAME: {
             return {
                 ...state,
-                selectedCountries: state.allCountries.filter(c => c.name.toLowerCase().includes(action.payload))
+                selectedCountries: state.allCountries.filter(c => c.name.toLowerCase().includes(action.payload.toLowerCase()))
             }
         }
         case RESET_COUNTRIES: {
@@ -83,7 +83,6 @@ const rootReducer = (state = initialState, action) => {
                 selectedCountries: sortedCountries
             }
         }
-
         case ORDER_BY_POPULATION: {
 
             let sortedCountries = state.selectedCountries;
@@ -98,25 +97,30 @@ const rootReducer = (state = initialState, action) => {
                 selectedCountries: sortedCountries
             }
         }
-
-
-        // case FILTER_COUNTRIES: {
-        //     const search = action.payload.search.toLowerCase();
-        //     const filter = action.payload.filter.toLowerCase();
-
-        //     if (!search || !filter || filter === "" || !search.lenght)
-        //         return {
-        //             ...state,
-        //             selectedCountries: state.allCountries
-        //         }
-        //     if (search && !filter)
-        //         return {
-        //             ...state,
-        //             selectedCountries: state.allCountries.filter(e => e.name.toLowerCase().includes(search))
-        //         }
-        //     break
-        // };
-
+        case FILTER_CONTINENT: {
+            let filteredCountries = []
+            if (action.payload === 'All') {
+                filteredCountries = state.allCountries
+            } else {
+                filteredCountries = state.allCountries.filter(c => c.continent === action.payload)
+            }
+            return {
+                ...state,
+                selectedCountries: filteredCountries
+            }
+        }
+        case FILTER_ACTIVITY: {
+            let filteredCountries = []
+            if (action.payload === 'All') {
+                filteredCountries = state.allCountries
+            } else {
+                filteredCountries = state.selectedCountries.filter(c => c.activities && c.activities.map(a => a.name) === action.payload)
+            }
+            return {
+                ...state,
+                selectedCountries: filteredCountries
+            }
+        }
         case SET_PAGE:
             return {
                 ...state,
@@ -127,30 +131,6 @@ const rootReducer = (state = initialState, action) => {
     }
 };
 
-// function order() {
-// };
-
 // const interseccion = arr1.filter((x) => arr2.includes(x))
-
-
-function sortArray(array, sort) {
-    const sortAZ = (a, b) => {
-        if (a > b) { return 1 }
-        if (a < b) { return -1 }
-        return 0;
-    }
-    const sortZA = (a, b) => { return sortAZ(b, a) }
-
-    const sortMinor = (a, b) => { return a - b }
-
-    const sortMajor = (a, b) => { return sortMinor(b, a) }
-
-    if (sort === "A-Z") { return array.sort((a, b) => sortAZ(a.name, b.name)) }
-    if (sort === "Z-A") { return array.sort((a, b) => sortZA(a.name, b.name)) }
-
-    if (sort === "ASC") { return array.sort((a, b) => sortMajor(a.population, b.population)) }
-    if (sort === "DESC") { return array.sort((a, b) => sortMinor(a.population, b.population)) }
-}
-
 
 export default rootReducer;

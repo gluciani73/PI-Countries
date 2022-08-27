@@ -35,8 +35,6 @@ export default function Search({ setFilter, country }) {
                     name='country'
                     placeholder="write country to search"
                     value={search}
-                    // onChange={e => setCountry(e.target.value)
-                    // }
                     onChange={(e) => handleChange(e)}
                 />
             </form>

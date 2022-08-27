@@ -9,6 +9,8 @@ export default function Header() {
 
     const dispatch = useDispatch();
     const allActivities = useSelector((state) => state.allActivities)
+    const activities = [...new Set(allActivities)];
+
 
     const [order, setOrder] = useState('');
 
@@ -42,10 +44,10 @@ export default function Header() {
 
     function handleFilterActivity(event) {
         // Se toma como payload el value de la option que elija el usuario
+        console.log(activities);
         dispatch(filterByActivity(event.target.value))
         console.log(event.target.value)
     }
-
 
     return (
         <div className={s.headerDiv}>
@@ -77,7 +79,7 @@ export default function Header() {
                 </select>
                 <select onChange={event => handleFilterActivity(event)} className={s.select}>
                     <option value="All">Todas</option>
-                    {allActivities && allActivities.map(activity => (
+                    {activities && activities.map(activity => (
                         <option value={activity.name}>{activity.name}</option>
                     ))}
                 </select>

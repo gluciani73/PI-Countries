@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import s from './Cards.module.css';
 import Card from './Card.jsx';
 import { useSelector } from 'react-redux';
