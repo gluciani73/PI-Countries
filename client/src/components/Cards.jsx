@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import s from './Cards.module.css';
 import Card from './Card.jsx';
-import { useSelector } from 'react-redux';
-
+// import { useSelector } from 'react-redux';
 
 export default function Cards({ countries }) {
-    console.log(countries);
-    const selectedCountries = useSelector(state => state.selectedCountries)
+    // console.log(countries);
+    // const selectedCountries = useSelector(state => state.selectedCountries)
 
-    if (countries.length) {
-
+    if (countries) {
         return (
             <div className={s.cards}>
-                {countries.length && countries.map(country =>
+                {countries && countries.map(country =>
                     <Card
                         key={country.id}
                         id={country.id}
