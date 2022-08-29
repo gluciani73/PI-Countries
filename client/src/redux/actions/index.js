@@ -32,7 +32,6 @@ export function getAllCountries() {
     };
 };
 export function getCountryByName(name) {
-    // setLoading(true);
     return function (dispatch) {
         try {
             dispatch({ type: GET_COUNTRY_BY_NAME, payload: name })

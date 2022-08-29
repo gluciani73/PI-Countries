@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getCountryDetail, resetCountryDetail } from "../redux/actions";
+import { getCountryDetail } from "../redux/actions";
 import s from './Country.module.css';
 
 export default function Country() {

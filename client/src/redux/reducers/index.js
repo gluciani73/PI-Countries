@@ -76,8 +76,9 @@ const rootReducer = (state = initialState, action) => {
                 sortedCountries = state.selectedCountries.sort((a, b) => a.name.localeCompare(b.name))
             }
             if (action.payload === 'Z-A') {
-                state.selectedCountries.sort((a, b) => b.name.localeCompare(a.name));
+                sortedCountries = state.selectedCountries.sort((a, b) => b.name.localeCompare(a.name));
             }
+            console.log(sortedCountries)
             return {
                 ...state,
                 selectedCountries: sortedCountries
@@ -87,10 +88,10 @@ const rootReducer = (state = initialState, action) => {
 
             let sortedCountries = state.selectedCountries;
             if (action.payload === 'ASC') {
-                state.selectedCountries.sort((a, b) => a.population - b.population)
+                sortedCountries = state.selectedCountries.sort((a, b) => a.population - b.population)
             }
             if (action.payload === 'DESC') {
-                state.selectedCountries.sort((a, b) => b.population - a.population);
+                sortedCountries = state.selectedCountries.sort((a, b) => b.population - a.population);
             }
             return {
                 ...state,

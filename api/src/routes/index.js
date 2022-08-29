@@ -148,7 +148,6 @@ router.get('/activities', async (req, res) => {
 // ---------------------- POST /activites ---------------------------
 router.post('/activities', async (req, res) => {
     try {
-
         console.log('-------POST /activities -------------- ')
         console.log('Req.body trae esto: ', req.body)
         const { name, difficulty, duration, season, countries } = req.body;
@@ -184,6 +183,7 @@ router.post('/activities', async (req, res) => {
             .send(msg)
 
     } catch (error) {
+        alert('Error en la creacion de actividad');
         console.log(error)
     }
 });

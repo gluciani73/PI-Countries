@@ -64,7 +64,8 @@ export default function Activity() {
         setInput({
             ...input,
             countries: [...input.countries, e.target.value]
-        })
+        });
+        setErrors({});
     };
 
     const handleDeleteCountry = (e) => {
