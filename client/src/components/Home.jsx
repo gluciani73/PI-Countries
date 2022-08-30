@@ -21,7 +21,12 @@ export default function Home() {
         if (!selectedCountries.length) dispatch(getAllCountries());
         // dispatch(getAllCountries());
         dispatch(getAllActivities());
-    }, [selectedCountries, Header, Pages, Cards]);
+    }, [selectedCountries]);
+
+    // useEffect(() => {
+    //     // console.log('Hola me monte Home, cambio selected Countries')
+    //     // console.log('Current Countries: ', currentCountries)
+    // }, [selectedCountries])
 
     // calcúlo datos para paginar:
     const cardsxPage = 10;

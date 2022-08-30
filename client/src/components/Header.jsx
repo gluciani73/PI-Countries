@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 import s from './Header.module.css';
@@ -41,43 +41,48 @@ export default function Header() {
             <div className={s.selectGap}>
 
                 {/* ORDEN POR POBLACION */}
-                <select onChange={event => handleOrderPop(event)} className={s.select}>
-                    <option>Ordenar por poblacion</option>
-                    <option value="ASC">Ascendente</option>
-                    <option value="DESC">Descendente</option>
+                <select onChange={event => handleOrderPop(event)} className={s.select} defaultValue={'default'}>
+                    <option value={'default'} disabled>Sort by population</option>
+                    <option value="ASC">from smallest to largest</option>
+                    <option value="DESC">from largest to smallest</option>
                 </select>
 
                 {/* ORDEN ALFABETICO POR NOMBRE  */}
-                <select onChange={event => handleOrderName(event)} className={s.select}>
-                    <option>Ordenar por nombre</option>
-                    <option value="A-Z">Ascendente</option>
-                    <option value="Z-A">Descendente</option>
+                <select onChange={event => handleOrderName(event)} className={s.select} defaultValue={'default'}>
+                    <option value={'default'} disabled>Sort by Name</option>
+                    <option value="A-Z">Ascending alphabet</option>
+                    <option value="Z-A">Descending aphabet</option>
                 </select>
+                <div>
+                    {/* FILTRO POR CONTINENTE */}
+                    <span>Select Continent: </span>
+                    <select onChange={event => handleFilterContinent(event)} className={s.select}>
+                        <option value="All">All countries</option>
+                        <option value="Africa">Africa</option>
+                        <option value="North America">North America</option>
+                        <option value="South America">South America</option>
+                        <option value="Antarctica">Antarctica</option>
+                        <option value="Asia">Asia</option>
+                        <option value="Europe">Europe</option>
+                        <option value="Oceania">Oceania</option>
+                    </select>
+                </div>
+                <div>
+                    <span>Select Activity: </span>
+                    {/* FILTRO POR ACTIVIDAD TURISTICA */}
+                    <select onChange={event => handleFilterActivity(event)} className={s.select}>
+                        <option value="All">All activities</option>
+                        {activities && activities.map(activity => (
+                            <option value={activity.name}>{activity.name}</option>
+                        ))}
+                    </select>
+                </div>
 
-                {/* FILTRO POR CONTINENTE */}
-                <select onChange={event => handleFilterContinent(event)} className={s.select}>
-                    <option value="All">Todos</option>
-                    <option value="Africa">Africa</option>
-                    <option value="North America">America del Norte</option>
-                    <option value="South America">America del Sur</option>
-                    <option value="Antarctica">Antartica</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Europe">Europa</option>
-                    <option value="Oceania">Oceania</option>
-                </select>
-
-                {/* FILTRO POR ACTIVIDAD TURISTICA */}
-                <select onChange={event => handleFilterActivity(event)} className={s.select}>
-                    <option value="All">Todas</option>
-                    {activities && activities.map(activity => (
-                        <option value={activity.name}>{activity.name}</option>
-                    ))}
-                </select>
 
             </div>
             <Search />
             <Link to="/activity">
-                <button>Crear actividad Turística</button>
+                <button>Create tourist activity</button>
             </Link>
 
         </div>

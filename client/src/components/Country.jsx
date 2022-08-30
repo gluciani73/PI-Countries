@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCountryDetail } from "../redux/actions";
 import s from './Country.module.css';
+import { Link } from "react-router-dom";
 
 export default function Country() {
 
@@ -30,15 +31,19 @@ export default function Country() {
                     <div>Continent: {country.continent}</div>
                     <div>Area: {country.area} km2</div>
                     <div>Population: {country.population} inhabitants</div>
-                    <div>Turism Activities: {
-                        country.activities && country.activities.map(
+                    <hr />
+                    <div><strong>Turist Activities: </strong>{
+                        country.activities ? country.activities.map(
                             (a) => (<div>
-                                <p><strong>{a.name}</strong> Difficulty: {a.difficulty}, Duration: {a.duration}, Season:  {a.season}</p>
+                                <p><strong>{a.name}</strong> Difficulty: {a.difficulty}, Duration: {a.duration} hs., Season:  {a.season}</p>
                             </div>)
-                        )
+                        ) : <div> No activities to show</div>
                     }</div>
                 </div>
             </div>
+            <Link to='/home'>
+                <button className={s.button} >Home</button>
+            </Link>
         </div>
     )
 };

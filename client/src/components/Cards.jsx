@@ -7,6 +7,7 @@ export default function Cards({ countries }) {
     // console.log(countries);
     // const selectedCountries = useSelector(state => state.selectedCountries)
 
+
     if (countries) {
         return (
             <div className={s.cards}>

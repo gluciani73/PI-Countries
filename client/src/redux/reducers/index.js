@@ -10,9 +10,7 @@ import {
     ORDER_BY_NAME,
     ORDER_BY_POPULATION,
     FILTER_CONTINENT,
-    FILTER_ACTIVITY,
-
-    // FILTER_COUNTRIES,
+    FILTER_ACTIVITY
 } from "../actions";
 
 // Estado Global Inicial
@@ -26,6 +24,8 @@ const initialState = {
 }
 
 const rootReducer = (state = initialState, action) => {
+    const countries = state.allCountries;
+
     switch (action.type) {
         case GET_ALL_COUNTRIES: {
             return {
@@ -71,27 +71,25 @@ const rootReducer = (state = initialState, action) => {
             }
         }
         case ORDER_BY_NAME: {
-            let sortedCountries = state.selectedCountries;
+            let sortedCountries = [];
             if (action.payload === 'A-Z') {
-                sortedCountries = state.selectedCountries.sort((a, b) => a.name.localeCompare(b.name))
+                sortedCountries = [...state.selectedCountries].sort((a, b) => a.name.localeCompare(b.name))
             }
             if (action.payload === 'Z-A') {
-                sortedCountries = state.selectedCountries.sort((a, b) => b.name.localeCompare(a.name));
+                sortedCountries = [...state.selectedCountries].sort((a, b) => b.name.localeCompare(a.name));
             }
-            console.log(sortedCountries)
             return {
                 ...state,
                 selectedCountries: sortedCountries
             }
         }
         case ORDER_BY_POPULATION: {
-
-            let sortedCountries = state.selectedCountries;
+            let sortedCountries = [];
             if (action.payload === 'ASC') {
-                sortedCountries = state.selectedCountries.sort((a, b) => a.population - b.population)
+                sortedCountries = [...state.selectedCountries].sort((a, b) => a.population - b.population)
             }
             if (action.payload === 'DESC') {
-                sortedCountries = state.selectedCountries.sort((a, b) => b.population - a.population);
+                sortedCountries = [...state.selectedCountries].sort((a, b) => b.population - a.population);
             }
             return {
                 ...state,
@@ -99,24 +97,19 @@ const rootReducer = (state = initialState, action) => {
             }
         }
         case FILTER_CONTINENT: {
-            let filteredCountries = []
-            if (action.payload === 'All') {
-                filteredCountries = state.allCountries
-            } else {
-                filteredCountries = state.allCountries.filter(c => c.continent === action.payload)
-            }
+            const filteredCountries = action.payload === 'All' && countries.length ?
+                state.allCountries :
+                countries.filter((c) => c.continent === action.payload)
+
             return {
                 ...state,
                 selectedCountries: filteredCountries
             }
         }
         case FILTER_ACTIVITY: {
-            let filteredCountries = []
-            if (action.payload === 'All') {
-                filteredCountries = state.allCountries
-            } else {
-                filteredCountries = state.selectedCountries.filter(c => c.activities && c.activities.map(a => a.name) === action.payload)
-            }
+            const filteredCountries = state.selectedCountries.filter((c) =>
+                c.activities.map((ac) => ac.name).includes(action.payload)
+            );
             return {
                 ...state,
                 selectedCountries: filteredCountries

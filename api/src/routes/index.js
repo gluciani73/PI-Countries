@@ -90,7 +90,11 @@ router.get('/countries', async (req, res) => {
 
         //  actualizo el array con la consulta a la DB ya completa
         console.log('Inicia consulta a DB completa')
-        countries = await Country.findAll();
+        countries = await Country.findAll({
+            include: {
+                model: Activity
+            }
+        });
         console.log('Fin consulta a DB completa')
         res.status(200).send(countries)
 
@@ -171,8 +175,8 @@ router.post('/activities', async (req, res) => {
         console.log(created ? 'Se creo la actividad' : 'La actividad ya existe');
 
         //https://sequelize.org/docs/v6/core-concepts/assocs/#foobelongstomanybar--through-baz-
-        const selectedCountries = [];        // en desarrollo
-        const notFound = [];                // en desarrollo
+        // const selectedCountries = [];        // en desarrollo
+        // const notFound = [];                // en desarrollo
         countries.forEach(async (c) => {
             const country = await Country.findOne({ where: { name: c } }); // para cada pais pasado lo busco
             if (country) { await activity.addCountry(country) };            // y le agrego la actividad pasada
@@ -183,7 +187,6 @@ router.post('/activities', async (req, res) => {
             .send(msg)
 
     } catch (error) {
-        alert('Error en la creacion de actividad');
         console.log(error)
     }
 });

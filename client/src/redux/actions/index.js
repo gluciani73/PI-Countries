@@ -90,7 +90,11 @@ export function addActivity(data) {
             .then(response => {
                 dispatch({ type: ADD_ACTIVITIES, payload: response })
             })
-            .catch(error => console.log(new Error(error)))
+            .catch(error => {
+                console.log(error);
+                alert('No se puede crear la actividad. Error: ' + error.response.data)
+                return false
+            })
         // .finally(() => setLoading(false))
     }
 };
