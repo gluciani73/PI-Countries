@@ -59,7 +59,7 @@ const rootReducer = (state = initialState, action) => {
         case RESET_COUNTRY_DETAIL: {
             return {
                 ...state,
-                selectedCountries: initialState.countryDetail
+                countryDetail: initialState.countryDetail
             }
         }
         case GET_ALL_ACTIVITIES: {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllActivities, getAllCountries, resetCountries } from "../redux/actions";
+import { getAllActivities, getAllCountries, resetCountries, resetCountryDetail } from "../redux/actions";
 import Cards from "./Cards";
 import Pages from "./Pages";
 import Header from "./Header";
@@ -20,7 +20,6 @@ export default function Home() {
     useEffect(() => {
         // if (!selectedCountries.length) dispatch(getAllCountries());
         dispatch(getAllCountries());
-        // dispatch(resetCountries());
         dispatch(getAllActivities());
     }, []);
 
