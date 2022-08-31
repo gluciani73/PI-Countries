@@ -35,15 +35,19 @@ const rootReducer = (state = initialState, action) => {
             }
         }
         case GET_COUNTRY_BY_NAME: {
+            const filteredCountries = countries.filter(c => c.name.toLowerCase().includes(action.payload.toLowerCase()))
+            // action.payload && countries.length ?
+            // state.allCountries : 
+            // countries.filter((c) => c.activities.map((ac) => ac.name).includes(action.payload));
             return {
                 ...state,
-                selectedCountries: state.allCountries.filter(c => c.name.toLowerCase().includes(action.payload.toLowerCase()))
+                selectedCountries: filteredCountries
             }
         }
         case RESET_COUNTRIES: {
             return {
                 ...state,
-                selectedCountries: state.allCountries
+                selectedCountries: state.allCountries.sort((a, b) => a.name.localeCompare(b.name))
             }
         }
         case GET_COUNTRY_DETAIL: {
@@ -99,17 +103,16 @@ const rootReducer = (state = initialState, action) => {
         case FILTER_CONTINENT: {
             const filteredCountries = action.payload === 'All' && countries.length ?
                 state.allCountries :
-                countries.filter((c) => c.continent === action.payload)
-
+                countries.filter((c) => c.continent === action.payload);
             return {
                 ...state,
                 selectedCountries: filteredCountries
             }
         }
         case FILTER_ACTIVITY: {
-            const filteredCountries = state.selectedCountries.filter((c) =>
-                c.activities.map((ac) => ac.name).includes(action.payload)
-            );
+            const filteredCountries = action.payload === 'All' && countries.length ?
+                state.allCountries :
+                countries.filter((c) => c.activities.map((ac) => ac.name).includes(action.payload));
             return {
                 ...state,
                 selectedCountries: filteredCountries

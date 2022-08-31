@@ -6,16 +6,28 @@
     background-repeat: no-repeat;
     height: 100vh;
     color: aliceblue;
-
     /* max-width: 100vh */
-    /* background-color: darkgray; */
+    background-color: darkgray;
 }
 
-.info {}
+.info {
+    border: 10px;
+}
 
 .detail {}
 
 .flag {
     width: 150px;
     height: 80px;
+}
+
+.activities {
+    margin: auto;
+
+    border-radius: 5px;
+    width: 75%;
+    padding: 10px;
+    border: 5px;
+    background-color: lightgray;
+    color: black;
 }

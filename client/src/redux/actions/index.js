@@ -20,15 +20,13 @@ export const FILTER_CONTINENT = 'FILTER_CONTINENT';
 export const FILTER_ACTIVITY = 'FILTER_ACTIVITY';
 
 export function getAllCountries() {
-    // setLoading(true);
     return function (dispatch) {
         axios.get(`http://localhost:3001/countries`)
             .then(response => response.data)
             .then(response => {
                 dispatch({ type: GET_ALL_COUNTRIES, payload: response })
             })
-            .catch(error => console.log(new Error(error)))
-        // .finally(() => setLoading(false))
+            .catch(error => console.log(error))
     };
 };
 export function getCountryByName(name) {
@@ -50,7 +48,6 @@ export function resetCountries() {
     };
 };
 export function getCountryDetail(id) {
-    // setLoading(true);
     return function (dispatch) {
         axios.get(`http://localhost:3001/countries/${id}`)
             .then(response => response.data)
@@ -58,7 +55,6 @@ export function getCountryDetail(id) {
                 dispatch({ type: GET_COUNTRY_DETAIL, payload: response })
             })
             .catch(error => console.log(new Error(error)))
-        // .finally(() => setLoading(false))
     };
 };
 export function resetCountryDetail() {
@@ -71,7 +67,6 @@ export function resetCountryDetail() {
     }
 }
 export function getAllActivities() {
-    // setLoading(true);
     return function (dispatch) {
         axios.get(`http://localhost:3001/activities`)
             .then(response => response.data)
@@ -79,23 +74,22 @@ export function getAllActivities() {
                 dispatch({ type: GET_ALL_ACTIVITIES, payload: response })
             })
             .catch(error => console.log(new Error(error)))
-        // .finally(() => setLoading(false))
     };
 };
 export function addActivity(data) {
-    // setLoading(true);
     return function (dispatch) {
-        axios.post(`http://localhost:3001/activities`, data)
+        return axios.post(`http://localhost:3001/activities`, data)
             .then(response => response.data)
             .then(response => {
-                dispatch({ type: ADD_ACTIVITIES, payload: response })
+                dispatch({ type: ADD_ACTIVITIES, payload: response });
+                alert('Se creo la actividad. ')
+                return true
             })
             .catch(error => {
                 console.log(error);
                 alert('No se puede crear la actividad. Error: ' + error.response.data)
                 return false
             })
-        // .finally(() => setLoading(false))
     }
 };
 export function setCurrentPage(page) {

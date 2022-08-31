@@ -9,7 +9,16 @@ export default function Header() {
 
     const dispatch = useDispatch();
     const allActivities = useSelector((state) => state.allActivities)
-    const activities = [...new Set(allActivities)];
+
+    const activities = [];
+    allActivities.map(
+        a => {
+            if (!activities.includes(a.name)) {
+                activities.push(a.name)
+            }
+        }
+    );
+    // console.log(activities);
 
     function handleOrderPop(event) {
         event.preventDefault()
@@ -30,10 +39,9 @@ export default function Header() {
     }
 
     function handleFilterActivity(event) {
-        // console.log(activities);
         dispatch(filterByActivity(event.target.value))
         dispatch(setCurrentPage(1));
-        console.log(event.target.value)
+        // console.log(event.target.value)
     }
 
     return (
@@ -73,7 +81,7 @@ export default function Header() {
                     <select onChange={event => handleFilterActivity(event)} className={s.select}>
                         <option value="All">All activities</option>
                         {activities && activities.map(activity => (
-                            <option value={activity.name}>{activity.name}</option>
+                            <option value={activity}>{activity}</option>
                         ))}
                     </select>
                 </div>

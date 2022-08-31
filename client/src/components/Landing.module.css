@@ -1,5 +1,9 @@
 .landing {
-    /* display: flex; */
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    /* justify-content: center; */
+    /* align-content: center; */
     background: url('../images/EarthMap.jpg');
     background-position: center;
     background-size: cover;
@@ -10,15 +14,7 @@
         /* background-color: darkgray; */
 }
 
-/* .landingRow {
-    color: wheat;
-} */
-
 .button {
-    display: flex;
-    position: absolute;
-    top: 40%;
-    left: 45%;
     border-radius: 6px;
     background-color: whitesmoke;
     border: none;

@@ -6,7 +6,17 @@
     background-repeat: no-repeat;
     height: 100vh;
     color: aliceblue;
+    justify-content: center;
 
     /* max-width: 100vh */
     /* background-color: darkgray; */
+}
+
+.formDiv {
+    /* justify-content: left; */
+    /* display: flex;
+    flex-direction: column;
+    width: 150px;
+    justify-items: center; */
+    /* justify-self: center; */
 }

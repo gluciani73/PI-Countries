@@ -38,7 +38,7 @@ export default function Search() {
                 />
             </form>
             <Link to="/home">
-                <button onClick={() => handleReset()}>Show All Countries</button>
+                <button onClick={() => handleReset()}>Clear Filters</button>
             </Link>
         </div>
 

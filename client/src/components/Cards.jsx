@@ -1,14 +1,17 @@
 import React from 'react';
 import s from './Cards.module.css';
 import Card from './Card.jsx';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export default function Cards({ countries }) {
     // console.log(countries);
-    // const selectedCountries = useSelector(state => state.selectedCountries)
+    const selectedCountries = useSelector(state => state.selectedCountries)
 
-
-    if (countries) {
+    if (!countries.length) {
+        return (
+            <div>No countries to show</div>
+        )
+    } else {
         return (
             <div className={s.cards}>
                 {countries && countries.map(country =>
@@ -22,9 +25,5 @@ export default function Cards({ countries }) {
                     />)}
             </div>
         );
-    } else {
-        return (
-            <div>No countries to show</div>
-        )
     }
 }

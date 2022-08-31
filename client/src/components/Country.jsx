@@ -32,7 +32,7 @@ export default function Country() {
                     <div>Area: {country.area} km2</div>
                     <div>Population: {country.population} inhabitants</div>
                     <hr />
-                    <div><strong>Turist Activities: </strong>{
+                    <div className={s.activities}><strong>Turist Activities: </strong>{
                         country.activities ? country.activities.map(
                             (a) => (<div>
                                 <p><strong>{a.name}</strong> Difficulty: {a.difficulty}, Duration: {a.duration} hs., Season:  {a.season}</p>

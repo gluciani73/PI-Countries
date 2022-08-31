@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllActivities, getAllCountries } from "../redux/actions";
+import { getAllActivities, getAllCountries, resetCountries } from "../redux/actions";
 import Cards from "./Cards";
 import Pages from "./Pages";
 import Header from "./Header";
@@ -18,15 +18,11 @@ export default function Home() {
 
     // Si se carga por primera vez o actualizan los componentes:
     useEffect(() => {
-        if (!selectedCountries.length) dispatch(getAllCountries());
-        // dispatch(getAllCountries());
+        // if (!selectedCountries.length) dispatch(getAllCountries());
+        dispatch(getAllCountries());
+        // dispatch(resetCountries());
         dispatch(getAllActivities());
-    }, [selectedCountries]);
-
-    // useEffect(() => {
-    //     // console.log('Hola me monte Home, cambio selected Countries')
-    //     // console.log('Current Countries: ', currentCountries)
-    // }, [selectedCountries])
+    }, []);
 
     // calcúlo datos para paginar:
     const cardsxPage = 10;
@@ -45,7 +41,7 @@ export default function Home() {
             <Header />
         </div>
         <div className={s.pages}>
-            <h4> Pages</h4>
+            {/* <h4> Pages</h4> */} <p></p>
             <Pages
                 totalCards={totalCards}
                 currPage={currPage}
@@ -53,7 +49,7 @@ export default function Home() {
             />
         </div>
         <div className={s.homeCards} >
-            <h3>Countries</h3>
+            {/* <h3>Countries</h3> */}
             <Cards
                 countries={currentCountries}
             />

@@ -136,8 +136,10 @@ router.get('/countries/:id', async (req, res) => {
 // ---------------------- GET /activites ---------------------------
 router.get('/activities', async (req, res) => {
     try {
-        console.log('Respuesta activities');
+        // console.log('Respuesta activities');
         let result = await Activity.findAll();
+        // console.log(result[0].toJSON());
+        // result.map()
         if (!result.length) {
             return res
                 .status(200)

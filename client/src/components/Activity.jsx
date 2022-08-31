@@ -28,7 +28,7 @@ export default function Activity() {
         let errors = {};
         if (!input.name) {
             errors.name = 'Name is required';
-        } else if (!/^[A-Za-z0-9\s]+$/g.test(input.name)) {
+        } else if (!/^(?!.*[ ]{2})[a-zA-Z0-9._\s-#!~@%^()]+$/g.test(input.name)) {
             errors.name = 'Name is invalid: It must have only letters and/or numbers';
         }
         if (!input.difficulty) {
@@ -45,6 +45,9 @@ export default function Activity() {
             errors.season = 'Please select Season';
         } else if (!["Verano", "Otoño", "Invierno", "Primavera"].includes(input.season)) {
             errors.season = 'Season is invalid: it should be "Verano", "Otoño", "Invierno" or "Primavera" ';
+        }
+        if (!input.countries.length) {
+            errors.countries = 'Please select at least one country';
         }
         setErrors(errors);
         return errors;
@@ -90,8 +93,8 @@ export default function Activity() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const response = dispatch(addActivity(input));
-        console.log(response)
+        dispatch(addActivity(input))
+            .then(() => history.push('/home'))  // https://v5.reactrouter.com/web/api/Hooks/usehistory
         setInput({
             name: '',
             difficulty: 0,
@@ -99,8 +102,6 @@ export default function Activity() {
             season: '',
             countries: []
         });
-        alert(response);
-        history.push('/home');   // https://v5.reactrouter.com/web/api/Hooks/usehistory
         setChange(false);
     }
 
@@ -112,7 +113,7 @@ export default function Activity() {
         <div className={s.activityDiv}>
             <h2>Create Activity</h2>
             <form onSubmit={(e) => handleSubmit(e)}>
-                <div>
+                <div className={s.formDiv}>
                     <label >Name: </label>
                     <input
                         type='text'
@@ -122,9 +123,9 @@ export default function Activity() {
                         onChange={handleInputChange}
                         placeholder="Activity name"
                     />
-                    {errors.name && <span>{errors.name}</span>}
+                    {errors.name && <span> - {errors.name}</span>}
                 </div>
-                <div>
+                <div className={s.formDiv}>
                     <label>Difficulty: </label>
                     <label>
                         <input type="radio" value='1' name='difficulty' onChange={handleInputChange} /> 1
@@ -141,8 +142,9 @@ export default function Activity() {
                     <label >
                         <input type="radio" value='5' name='difficulty' onChange={handleInputChange} /> 5
                     </label>
+                    {errors.difficulty && <span> - {errors.difficulty}</span>}
                 </div>
-                <div>
+                <div className={s.formDiv}>
                     <label>Duration: </label>
                     <input
                         type='number'
@@ -152,9 +154,9 @@ export default function Activity() {
                         name="duration"
                         onChange={handleInputChange}
                         placeholder="Duration" /> in hours.
-                    {errors.duration && <span>{errors.duration}</span>}
+                    {errors.duration && <span> - {errors.duration}</span>}
                 </div>
-                <div>
+                <div className={s.formDiv}>
                     <label>Season: </label>
                     <label>
                         <input type="radio" value='Verano' name='season' onChange={handleInputChange} />
@@ -168,11 +170,13 @@ export default function Activity() {
                     <label>
                         <input type="radio" value='Primavera' name='season' onChange={handleInputChange} />
                         Primavera</label>
+                    {errors.season && <span> - {errors.season}</span>}
                 </div>
 
-                <div>
+                <div className={s.formDiv}>
                     <label>Select activity countries: </label>
-                    <select name="countries" onChange={(e) => handleAddCountry(e)}>
+                    <select name="countries" onChange={(e) => handleAddCountry(e)} defaultValue={'default'}>
+                        <option value={'default'} disabled>Select countries</option>
                         {countries.map((country) => (
                             <option value={country.name}>{country.name}</option>
                         ))}
@@ -183,11 +187,11 @@ export default function Activity() {
                         </div>
                     )}
                 </div>
-                <input type="submit" />
+                <input type="submit" disabled={!change ? true : errors.name || errors.duration || errors.difficulty || errors.season || errors.countries ? true : false} />
             </form>
             <Link to='/home'>
                 <button className={s.button} >Home</button>
             </Link>
-        </div>
+        </div >
     );
 }
