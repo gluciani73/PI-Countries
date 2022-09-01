@@ -12,13 +12,8 @@ export default function Header() {
 
     const activities = [];
     allActivities.map(
-        a => {
-            if (!activities.includes(a.name)) {
-                activities.push(a.name)
-            }
-        }
+        a => !activities.includes(a.name) && activities.push(a.name)
     );
-    // console.log(activities);
 
     function handleOrderPop(event) {
         event.preventDefault()
@@ -41,7 +36,6 @@ export default function Header() {
     function handleFilterActivity(event) {
         dispatch(filterByActivity(event.target.value))
         dispatch(setCurrentPage(1));
-        // console.log(event.target.value)
     }
 
     return (
@@ -61,8 +55,9 @@ export default function Header() {
                     <option value="A-Z">Ascending alphabet</option>
                     <option value="Z-A">Descending aphabet</option>
                 </select>
+
+                {/* FILTRO POR CONTINENTE */}
                 <div>
-                    {/* FILTRO POR CONTINENTE */}
                     <span>Select Continent: </span>
                     <select onChange={event => handleFilterContinent(event)} className={s.select}>
                         <option value="All">All countries</option>
@@ -75,24 +70,22 @@ export default function Header() {
                         <option value="Oceania">Oceania</option>
                     </select>
                 </div>
+
+                {/* FILTRO POR ACTIVIDAD TURISTICA */}
                 <div>
                     <span>Select Activity: </span>
-                    {/* FILTRO POR ACTIVIDAD TURISTICA */}
                     <select onChange={event => handleFilterActivity(event)} className={s.select}>
                         <option value="All">All activities</option>
-                        {activities && activities.map(activity => (
-                            <option value={activity}>{activity}</option>
+                        {activities && activities.map((activity, idx) => (
+                            <option key={idx} value={activity}>{activity}</option>
                         ))}
                     </select>
                 </div>
-
-
             </div>
             <Search />
             <Link to="/activity">
                 <button>Create tourist activity</button>
             </Link>
-
         </div>
     );
 };

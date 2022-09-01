@@ -3,9 +3,16 @@ import s from './Landing.module.css';
 import { Link } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { resetCountries } from "../redux/actions";
+import { getAllActivities, getAllCountries } from "../redux/actions";
 
 export default function Landing() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getAllCountries());
+        dispatch(getAllActivities());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return (
         <div className={s.landing} >
             <div className={s.landingTitle}>

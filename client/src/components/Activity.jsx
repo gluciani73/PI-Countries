@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addActivity, getAllCountries } from '../redux/actions';
+import { addActivity, getAllActivities, getAllCountries } from '../redux/actions';
 import { useHistory } from 'react-router';
 import s from './Activity.module.css';
 import { Link } from 'react-router-dom';
@@ -22,7 +22,9 @@ export default function Activity() {
     const [errors, setErrors] = useState({});
     const [change, setChange] = useState(false);
 
-    useEffect(() => change && validate(), [input])
+    useEffect(() => change && validate()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        , [input])
 
     function validate() {
         let errors = {};
@@ -51,15 +53,9 @@ export default function Activity() {
         }
         setErrors(errors);
         return errors;
-        // Regex solo letras y/o numeros /^[A-Za-z0-9\s]+$/g
-        //       solo letras             /^[a-zA-Z]+$/g
     }
 
     const handleInputChange = function (e) {
-        // setErrors(validate({
-        //     ...input,
-        //     [e.target.name]: e.target.value
-        // }));
         if (e.target.checked) {
             setInput({
                 ...input,
@@ -82,8 +78,6 @@ export default function Activity() {
     };
 
     const handleDeleteCountry = (e, c) => {
-        console.log('Delete Country: ', e.target.value)
-        console.log('Country Name: ', c)
         e.preventDefault();
         setInput({
             ...input,
@@ -94,6 +88,8 @@ export default function Activity() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(addActivity(input))
+            .then(() => dispatch(getAllActivities()))
+            .then(() => dispatch(getAllCountries()))
             .then(() => history.push('/home'))  // https://v5.reactrouter.com/web/api/Hooks/usehistory
         setInput({
             name: '',
@@ -119,7 +115,7 @@ export default function Activity() {
                         type='text'
                         value={input.name}
                         name='name'
-                        // required
+                        required
                         onChange={handleInputChange}
                         placeholder="Activity name"
                     />
@@ -177,12 +173,12 @@ export default function Activity() {
                     <label>Select activity countries: </label>
                     <select name="countries" onChange={(e) => handleAddCountry(e)} defaultValue={'default'}>
                         <option value={'default'} disabled>Select countries</option>
-                        {countries.map((country) => (
-                            <option value={country.name}>{country.name}</option>
+                        {countries.map((country, idx) => (
+                            <option key={idx} value={country.name}>{country.name}</option>
                         ))}
                     </select>
-                    {input.countries.map((c) =>
-                        <div>
+                    {input.countries.map((c, idx) =>
+                        <div key={idx}>
                             <p>{c} <button onClick={(e) => handleDeleteCountry(e, c)}>Remove</button></p>
                         </div>
                     )}
@@ -190,7 +186,7 @@ export default function Activity() {
                 <input type="submit" disabled={!change ? true : errors.name || errors.duration || errors.difficulty || errors.season || errors.countries ? true : false} />
             </form>
             <Link to='/home'>
-                <button className={s.button} >Home</button>
+                <button className={s.button} >Back</button>
             </Link>
         </div >
     );

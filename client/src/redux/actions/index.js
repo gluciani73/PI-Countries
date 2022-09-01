@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-// const PATH = "http://localhost:3001/countries/";
-
 export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES';
 export const GET_COUNTRY_BY_NAME = 'GET_COUNTRY_BY_NAME';
 export const GET_COUNTRY_DETAIL = 'GET_COUNTRY_DETAIL';
@@ -54,7 +52,7 @@ export function getCountryDetail(id) {
             .then(response => {
                 dispatch({ type: GET_COUNTRY_DETAIL, payload: response })
             })
-            .catch(error => console.log(new Error(error)))
+            .catch(error => console.log(error))
     };
 };
 export function resetCountryDetail() {
@@ -73,7 +71,7 @@ export function getAllActivities() {
             .then(response => {
                 dispatch({ type: GET_ALL_ACTIVITIES, payload: response })
             })
-            .catch(error => console.log(new Error(error)))
+            .catch(error => console.log(error))
     };
 };
 export function addActivity(data) {

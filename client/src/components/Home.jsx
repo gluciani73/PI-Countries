@@ -1,26 +1,22 @@
 import React, { useEffect } from "react";
-// import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllActivities, getAllCountries, resetCountries, resetCountryDetail } from "../redux/actions";
+import { getAllActivities, getAllCountries } from "../redux/actions";
 import Cards from "./Cards";
 import Pages from "./Pages";
 import Header from "./Header";
-
 import s from './Home.module.css';
 
 export default function Home() {
 
     const dispatch = useDispatch();
-    // traigo los paises del estado Global
-    // const allCountries = useSelector(state => state.allCountries);
+
     const selectedCountries = useSelector(state => state.selectedCountries);
     const currPage = useSelector(state => state.currentPage);
 
-    // Si se carga por primera vez o actualizan los componentes:
     useEffect(() => {
-        // if (!selectedCountries.length) dispatch(getAllCountries());
-        dispatch(getAllCountries());
+        if (!selectedCountries.length) dispatch(getAllCountries());
         dispatch(getAllActivities());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // calcúlo datos para paginar:
@@ -33,14 +29,14 @@ export default function Home() {
     const totalCards = selectedCountries.length
     const currentCountries = selectedCountries.slice(idxFirstCard, idxLastCard + 1);
     // pag 1 de 0 a 8, de pag 2 en adelante de 9 a 18
-    // console.log(currentCountries)
+
     return (<div className={s.home}>
         <div >
-            <h3>Header</h3>
+            <h3>Countries</h3>
             <Header />
         </div>
         <div className={s.pages}>
-            {/* <h4> Pages</h4> */} <p></p>
+            <p></p>
             <Pages
                 totalCards={totalCards}
                 currPage={currPage}
@@ -48,7 +44,6 @@ export default function Home() {
             />
         </div>
         <div className={s.homeCards} >
-            {/* <h3>Countries</h3> */}
             <Cards
                 countries={currentCountries}
             />

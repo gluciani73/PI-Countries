@@ -9,7 +9,6 @@ export default function Country() {
 
     const dispatch = useDispatch();
     const { id } = useParams();
-    // console.log('id de params: ', id)
 
     useEffect(() => {
         dispatch(getCountryDetail(id));
@@ -21,7 +20,7 @@ export default function Country() {
     }, [dispatch, id]);
 
     const country = useSelector((state) => state.countryDetail)
-    // console.log('Country: ', country);
+
     return (
         <div className={s.country} >
             <div className={s.detail}>
@@ -38,16 +37,17 @@ export default function Country() {
                     <div>Population: {country.population} inhabitants</div>
                     <hr />
                     <div className={s.activities}><strong>Turist Activities: </strong>{
-                        country.activities ? country.activities.map(
-                            (a) => (<div>
-                                <p><strong>{a.name}</strong> Difficulty: {a.difficulty}, Duration: {a.duration} hs., Season:  {a.season}</p>
-                            </div>)
-                        ) : <div> No activities to show</div>
+                        country.activities && country.activities.length ?
+                            country.activities.map(
+                                (a, idx) => (<div key={idx}>
+                                    <p><strong>{a.name}</strong> Difficulty: {a.difficulty}, Duration: {a.duration} hs., Season:  {a.season}</p>
+                                </div>))
+                            : <div> No activities to show</div>
                     }</div>
                 </div>
             </div>
             <Link to='/home'>
-                <button className={s.button} >Home</button>
+                <button className={s.button} >Back</button>
             </Link>
         </div>
     )

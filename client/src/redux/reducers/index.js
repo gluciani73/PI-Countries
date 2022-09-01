@@ -16,10 +16,12 @@ import {
 // Estado Global Inicial
 
 const initialState = {
-    allCountries: [], // contiene todos los paises
-    selectedCountries: [],  // contiene paises seleccionados
-    countryDetail: {}, // detalle de un pais
+    allCountries: [],
+    selectedCountries: [],
+    countryDetail: {},
     allActivities: [],
+    continent: 'All',
+    activity: 'All',
     currentPage: 1
 }
 
@@ -65,7 +67,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_ALL_ACTIVITIES: {
             return {
                 ...state,
-                allActivities: action.payload
+                allActivities: action.payload.sort((a, b) => a.name.localeCompare(b.name)),
             }
         }
         case ADD_ACTIVITIES: {
@@ -101,21 +103,34 @@ const rootReducer = (state = initialState, action) => {
             }
         }
         case FILTER_CONTINENT: {
+
+            const filteredByActivity = state.activity === 'All' ?
+                countries
+                : countries.filter((c) => c.activities.map((ac) => ac.name).includes(state.activity));
+
             const filteredCountries = action.payload === 'All' && countries.length ?
-                state.allCountries :
-                countries.filter((c) => c.continent === action.payload);
+                filteredByActivity :
+                filteredByActivity.filter((c) => c.continent === action.payload);
+
             return {
                 ...state,
-                selectedCountries: filteredCountries
+                selectedCountries: filteredCountries,
+                continent: action.payload
             }
         }
         case FILTER_ACTIVITY: {
-            const filteredCountries = action.payload === 'All' && countries.length ?
-                state.allCountries :
-                countries.filter((c) => c.activities.map((ac) => ac.name).includes(action.payload));
+
+            const filteredByContinent = state.continent === 'All' ?
+                countries :
+                countries.filter(c => c.continent === state.continent);
+
+            const filteredCountries = action.payload === 'All' && filteredByContinent.length ?
+                filteredByContinent :
+                filteredByContinent.filter((c) => c.activities.map((ac) => ac.name).includes(action.payload));
             return {
                 ...state,
-                selectedCountries: filteredCountries
+                selectedCountries: filteredCountries,
+                activity: action.payload
             }
         }
         case SET_PAGE:
@@ -127,7 +142,5 @@ const rootReducer = (state = initialState, action) => {
         default: return state;
     }
 };
-
-// const interseccion = arr1.filter((x) => arr2.includes(x))
 
 export default rootReducer;

@@ -31,15 +31,3 @@ module.exports = (sequelize) => {
       // updatedAt: 'actualizado'
     });
 };
-
-// El modelo de la base de datos deberá tener las siguientes entidades(Aquellas propiedades marcadas con asterísco deben ser obligatorias):
-//
-// País con las siguientes propiedades:
-// ID(Código de 3 letras) *
-//   Nombre *
-//   Imagen de la bandera *
-//   Continente *
-//   Capital *
-//   Subregión
-//   Área
-//   Población
