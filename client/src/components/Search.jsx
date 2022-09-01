@@ -20,7 +20,7 @@ export default function Search() {
     };
 
     function handleReset() {
-        dispatch(resetCountries())
+        dispatch(resetCountries());
     }
 
     return (

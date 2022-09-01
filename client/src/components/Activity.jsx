@@ -88,7 +88,6 @@ export default function Activity() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(addActivity(input))
-            .then(() => dispatch(getAllActivities()))
             .then(() => dispatch(getAllCountries()))
             .then(() => history.push('/home'))  // https://v5.reactrouter.com/web/api/Hooks/usehistory
         setInput({
