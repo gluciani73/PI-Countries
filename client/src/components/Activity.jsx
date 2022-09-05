@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addActivity, getAllCountries } from '../redux/actions';
+import { addActivity, getAllActivities, getAllCountries } from '../redux/actions';
 import { useHistory } from 'react-router';
 import s from './Activity.module.css';
 import { Link } from 'react-router-dom';
@@ -88,6 +88,7 @@ export default function Activity() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(addActivity(input))
+            .then(() => dispatch(getAllActivities()))
             .then(() => dispatch(getAllCountries()))
             .then(() => history.push('/home'))  // https://v5.reactrouter.com/web/api/Hooks/usehistory
         setInput({
