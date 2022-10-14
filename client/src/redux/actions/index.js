@@ -19,7 +19,7 @@ export const FILTER_ACTIVITY = 'FILTER_ACTIVITY';
 
 export function getAllCountries() {
     return function (dispatch) {
-        axios.get(`http://localhost:3001/countries`)
+        axios.get(`/countries`)
             .then(response => response.data)
             .then(response => {
                 dispatch({ type: GET_ALL_COUNTRIES, payload: response })
@@ -47,7 +47,7 @@ export function resetCountries() {
 };
 export function getCountryDetail(id) {
     return function (dispatch) {
-        axios.get(`http://localhost:3001/countries/${id}`)
+        axios.get(`/countries/${id}`)
             .then(response => response.data)
             .then(response => {
                 dispatch({ type: GET_COUNTRY_DETAIL, payload: response })
@@ -66,7 +66,7 @@ export function resetCountryDetail() {
 }
 export function getAllActivities() {
     return function (dispatch) {
-        axios.get(`http://localhost:3001/activities`)
+        axios.get(`/activities`)
             .then(response => response.data)
             .then(response => {
                 dispatch({ type: GET_ALL_ACTIVITIES, payload: response })
@@ -76,7 +76,7 @@ export function getAllActivities() {
 };
 export function addActivity(data) {
     return function (dispatch) {
-        return axios.post(`http://localhost:3001/activities`, data)
+        return axios.post(`/activities`, data)
             .then(response => response.data)
             .then(response => {
                 dispatch({ type: ADD_ACTIVITIES, payload: response });
