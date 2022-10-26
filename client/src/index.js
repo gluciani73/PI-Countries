@@ -8,16 +8,20 @@ import { Provider } from 'react-redux';
 import store from './redux/store/index'
 // import dotenv from 'dotenv';
 import axios from 'axios';
-
 // dotenv.config();
+import { QueryClient, QueryClientProvider } from "react-query";
 
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+
+const queryClient = new QueryClient()
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,

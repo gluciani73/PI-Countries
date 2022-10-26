@@ -15,13 +15,13 @@
 
 .homeCards {
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
     flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 30px;
     background-color: #3c4e61;
     /* background-color: #0d1117; */
-    height: auto;
+    /* height: auto; */
 
 
 }

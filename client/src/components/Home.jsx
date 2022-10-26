@@ -1,23 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllActivities, getAllCountries } from "../redux/actions";
 import Cards from "./Cards";
 import Pages from "./Pages";
 import Header from "./Header";
 import s from './Home.module.css';
+import { useQuery } from "react-query";
 
 export default function Home() {
 
     const dispatch = useDispatch();
+    const { data, error, isLoading } = useQuery(["countries"], getAllCountries);
+
+    // const [isLoading, setIsLoading] = useState(true);
+
+    // useEffect(() => {
+    //     setIsLoading(true);
+    //     if (!selectedCountries.length) dispatch(getAllCountries());
+    //     dispatch(getAllActivities());
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    //     setIsLoading(false);
+    // }, []);
 
     const selectedCountries = useSelector(state => state.selectedCountries);
     const currPage = useSelector(state => state.currentPage);
-
-    useEffect(() => {
-        if (!selectedCountries.length) dispatch(getAllCountries());
-        dispatch(getAllActivities());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     // calcúlo datos para paginar:
     const cardsxPage = 10;
@@ -29,6 +35,14 @@ export default function Home() {
     const totalCards = selectedCountries.length
     const currentCountries = selectedCountries.slice(idxFirstCard, idxLastCard + 1);
     // pag 1 de 0 a 8, de pag 2 en adelante de 9 a 18
+
+    if (isLoading) {
+        return (
+            <div>
+                <span className="spinner-border"></span> Loading Countries...
+            </div>
+        );
+    }
 
     return (<div className={s.home}>
         <div >
