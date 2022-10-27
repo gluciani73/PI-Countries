@@ -11,7 +11,7 @@ import Message from "./Message";
 
 export default function Home() {
     // const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false)
+    // const [loading, setLoading] = useState(false)
     const dispatch = useDispatch();
 
     // const { data, error, isLoading } = useQuery(["countries"], getAllCountries);
@@ -62,10 +62,10 @@ export default function Home() {
                 cardsxPage={cardsxPage}
             />
         </div>
-        <div className={s.homeCards} >
-            {/* <Loader /> */}
+        <div>
             {showLoading && <Loader />}
-            {/* {error && <Message />} */}
+        </div>
+        <div className={s.homeCards} >
             {currentCountries && (<Cards
                 countries={currentCountries}
             />)}
