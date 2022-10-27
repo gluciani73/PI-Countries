@@ -17,14 +17,20 @@ export const ORDER_BY_POPULATION = 'ORDER_BY_POPULATION';
 export const FILTER_CONTINENT = 'FILTER_CONTINENT';
 export const FILTER_ACTIVITY = 'FILTER_ACTIVITY';
 
+export const LOADING_TOGGLE_ACTION = 'LOADING_TOGGLE_ACTION';
+
 export function getAllCountries() {
     return function (dispatch) {
         axios.get(`/countries`)
             .then(response => response.data)
             .then(response => {
+                // dispatch(loadingToggleAction(false));
                 dispatch({ type: GET_ALL_COUNTRIES, payload: response })
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                // dispatch(loadingToggleAction(false));
+                console.log(error)
+            })
     };
 };
 export function getCountryByName(name) {
@@ -118,3 +124,9 @@ export function filterByActivity(payload) {
     }
 };
 
+export function loadingToggleAction(status) {
+    return {
+        type: LOADING_TOGGLE_ACTION,
+        payload: status
+    }
+}

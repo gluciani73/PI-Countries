@@ -3,11 +3,12 @@ import s from './Landing.module.css';
 import { Link } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAllActivities, getAllCountries } from "../redux/actions";
+import { getAllActivities, getAllCountries, loadingToggleAction } from "../redux/actions";
 
 export default function Landing() {
     const dispatch = useDispatch();
     useEffect(() => {
+        // dispatch(loadingToggleAction(true));
         dispatch(getAllCountries());
         dispatch(getAllActivities());
         // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,27 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllActivities, getAllCountries } from "../redux/actions";
+import { getAllActivities, getAllCountries, loadingToggleAction } from "../redux/actions";
 import Cards from "./Cards";
 import Pages from "./Pages";
 import Header from "./Header";
 import s from './Home.module.css';
 import { useQuery } from "react-query";
+import Loader from "./Loader";
+import Message from "./Message";
 
 export default function Home() {
-
+    // const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch();
-    const { data, error, isLoading } = useQuery(["countries"], getAllCountries);
 
+    // const { data, error, isLoading } = useQuery(["countries"], getAllCountries);
     // const [isLoading, setIsLoading] = useState(true);
 
-    // useEffect(() => {
-    //     setIsLoading(true);
-    //     if (!selectedCountries.length) dispatch(getAllCountries());
-    //     dispatch(getAllActivities());
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    //     setIsLoading(false);
-    // }, []);
+    useEffect(() => {
+        // setLoading(true);
+        dispatch(loadingToggleAction(true));
+        if (!selectedCountries.length) dispatch(getAllCountries());
+        dispatch(getAllActivities());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // setLoading(false);
+    }, []);
 
+    const showLoading = useSelector(state => state.showLoading);
     const selectedCountries = useSelector(state => state.selectedCountries);
     const currPage = useSelector(state => state.currentPage);
 
@@ -36,13 +41,13 @@ export default function Home() {
     const currentCountries = selectedCountries.slice(idxFirstCard, idxLastCard + 1);
     // pag 1 de 0 a 8, de pag 2 en adelante de 9 a 18
 
-    if (isLoading) {
-        return (
-            <div>
-                <span className="spinner-border"></span> Loading Countries...
-            </div>
-        );
-    }
+    // if (isLoading) {
+    //     return (
+    //         <div>
+    //             <span className="spinner-border"></span> Loading Countries...
+    //         </div>
+    //     );
+    // }
 
     return (<div className={s.home}>
         <div >
@@ -58,9 +63,12 @@ export default function Home() {
             />
         </div>
         <div className={s.homeCards} >
-            <Cards
+            {/* <Loader /> */}
+            {showLoading && <Loader />}
+            {/* {error && <Message />} */}
+            {currentCountries && (<Cards
                 countries={currentCountries}
-            />
+            />)}
         </div>
     </div>
     );

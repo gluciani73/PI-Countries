@@ -10,7 +10,8 @@ import {
     ORDER_BY_NAME,
     ORDER_BY_POPULATION,
     FILTER_CONTINENT,
-    FILTER_ACTIVITY
+    FILTER_ACTIVITY,
+    LOADING_TOGGLE_ACTION
 } from "../actions";
 
 // Estado Global Inicial
@@ -22,7 +23,8 @@ const initialState = {
     allActivities: [],
     continent: 'All',
     activity: 'All',
-    currentPage: 1
+    currentPage: 1,
+    showLoading: false
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -33,7 +35,8 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allCountries: action.payload.sort((a, b) => a.name.localeCompare(b.name)),
-                selectedCountries: action.payload.sort((a, b) => a.name.localeCompare(b.name))
+                selectedCountries: action.payload.sort((a, b) => a.name.localeCompare(b.name)),
+                showLoading: false,
             }
         }
         case GET_COUNTRY_BY_NAME: {
@@ -43,31 +46,36 @@ const rootReducer = (state = initialState, action) => {
             // countries.filter((c) => c.activities.map((ac) => ac.name).includes(action.payload));
             return {
                 ...state,
-                selectedCountries: filteredCountries
+                selectedCountries: filteredCountries,
+                showLoading: false,
             }
         }
         case RESET_COUNTRIES: {
             return {
                 ...state,
-                selectedCountries: state.allCountries.sort((a, b) => a.name.localeCompare(b.name))
+                selectedCountries: state.allCountries.sort((a, b) => a.name.localeCompare(b.name)),
+                showLoading: false,
             }
         }
         case GET_COUNTRY_DETAIL: {
             return {
                 ...state,
                 countryDetail: action.payload,
+                showLoading: false,
             }
         }
         case RESET_COUNTRY_DETAIL: {
             return {
                 ...state,
-                countryDetail: initialState.countryDetail
+                countryDetail: initialState.countryDetail,
+                showLoading: false,
             }
         }
         case GET_ALL_ACTIVITIES: {
             return {
                 ...state,
                 allActivities: action.payload.sort((a, b) => a.name.localeCompare(b.name)),
+                showLoading: false,
             }
         }
         case ADD_ACTIVITIES: {
@@ -138,6 +146,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 currentPage: action.payload
             };
+        case LOADING_TOGGLE_ACTION:
+            return {
+                ...state,
+                showLoading: action.payload
+            }
 
         default: return state;
     }
