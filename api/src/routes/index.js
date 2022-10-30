@@ -17,6 +17,21 @@ const infoCountries = async () => {
     // console.log('Se solicita Info a restcountries')
     const CountriesApi = await axios.get('https://restcountries.com/v3/all');
     const arrCountriesDB = await CountriesApi.data.map(c => {
+        let languages = "";
+        if (c.languages) { languages = Object.values(c.languages).join(", ") }
+        // console.log(languages);
+        let currency = "";
+        let currency_name = "";
+        let currency_symbol = "";
+        if (c.currencies) {
+            // currencies = Object.keys(c.currencies).join(", ");
+            currency = Object.keys(c.currencies)[0];
+            console.log(currency)
+            c.currencies[currency].name && (currency_name = Object.values(c.currencies[currency].name).join(""));
+            c.currencies[currency].symbol && (currency_symbol = Object.values(c.currencies[currency].symbol).join(""));
+        }
+        console.log(currency);
+
         let country = {
             id: c.cca3,
             name: c.name.common, // en ingles, c.translations.spa.common nombres en español, 
@@ -25,7 +40,12 @@ const infoCountries = async () => {
             capital: !c.capital ? '' : c.capital.join(),
             subregion: c.subregion,
             area: c.area,
-            population: c.population
+            population: c.population,
+            googleMaps: c.maps.googleMaps,
+            languages,
+            currency,
+            currency_name,
+            currency_symbol,
         }
         return country
     });

@@ -34,6 +34,21 @@ module.exports = (sequelize) => {
     population: {
       type: DataTypes.INTEGER,
     },
+    currency: {
+      type: DataTypes.STRING,
+    },
+    currency_name: {
+      type: DataTypes.STRING,
+    },
+    currency_symbol: {
+      type: DataTypes.STRING,
+    },
+    languages: {
+      type: DataTypes.STRING,
+    },
+    googleMaps: {
+      type: DataTypes.STRING,
+    },
   },
     {
       timestamps: false

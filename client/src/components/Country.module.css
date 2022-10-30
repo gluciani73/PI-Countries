@@ -23,9 +23,8 @@
 
 .activities {
     margin: auto;
-
     border-radius: 5px;
-    width: 75%;
+    width: 200px;
     padding: 10px;
     border: 5px;
     background-color: lightgray;

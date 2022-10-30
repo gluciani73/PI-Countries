@@ -10,24 +10,17 @@ import Loader from "./Loader";
 import Message from "./Message";
 
 export default function Home() {
-    // const [error, setError] = useState(null);
-    // const [loading, setLoading] = useState(false)
     const dispatch = useDispatch();
 
-    // const { data, error, isLoading } = useQuery(["countries"], getAllCountries);
-    // const [isLoading, setIsLoading] = useState(true);
-
     useEffect(() => {
-        // setLoading(true);
         dispatch(loadingToggleAction(true));
         if (!selectedCountries.length) dispatch(getAllCountries());
         dispatch(getAllActivities());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        // setLoading(false);
     }, []);
 
-    const showLoading = useSelector(state => state.showLoading);
     const selectedCountries = useSelector(state => state.selectedCountries);
+    const showLoading = useSelector(state => state.showLoading);
     const currPage = useSelector(state => state.currentPage);
 
     // calcúlo datos para paginar:
@@ -40,14 +33,6 @@ export default function Home() {
     const totalCards = selectedCountries.length
     const currentCountries = selectedCountries.slice(idxFirstCard, idxLastCard + 1);
     // pag 1 de 0 a 8, de pag 2 en adelante de 9 a 18
-
-    // if (isLoading) {
-    //     return (
-    //         <div>
-    //             <span className="spinner-border"></span> Loading Countries...
-    //         </div>
-    //     );
-    // }
 
     return (<div className={s.home}>
         <div >

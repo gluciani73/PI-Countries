@@ -81,7 +81,8 @@ const rootReducer = (state = initialState, action) => {
         case ADD_ACTIVITIES: {
             return {
                 ...state,
-                allActivities: state.allActivities.concat(action.payload)
+                allActivities: state.allActivities.concat(action.payload),
+                showLoading: false,
             }
         }
         case ORDER_BY_NAME: {
@@ -94,7 +95,8 @@ const rootReducer = (state = initialState, action) => {
             }
             return {
                 ...state,
-                selectedCountries: sortedCountries
+                selectedCountries: sortedCountries,
+                showLoading: false,
             }
         }
         case ORDER_BY_POPULATION: {
@@ -107,7 +109,8 @@ const rootReducer = (state = initialState, action) => {
             }
             return {
                 ...state,
-                selectedCountries: sortedCountries
+                selectedCountries: sortedCountries,
+                showLoading: false,
             }
         }
         case FILTER_CONTINENT: {
@@ -123,7 +126,8 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedCountries: filteredCountries,
-                continent: action.payload
+                continent: action.payload,
+                showLoading: false,
             }
         }
         case FILTER_ACTIVITY: {
@@ -138,13 +142,15 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedCountries: filteredCountries,
-                activity: action.payload
+                activity: action.payload,
+                showLoading: false,
             }
         }
         case SET_PAGE:
             return {
                 ...state,
-                currentPage: action.payload
+                currentPage: action.payload,
+                showLoading: false,
             };
         case LOADING_TOGGLE_ACTION:
             return {
